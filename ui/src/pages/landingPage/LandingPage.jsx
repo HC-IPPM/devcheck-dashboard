@@ -52,12 +52,23 @@ export default function LandingPage() {
 				aria-label={t("pages.landingPage.title")} // Associate container with a heading
 			>
 				<GcdsText tag="p" characterLimit="false">{t("pages.landingPage.landingPagePara")}</GcdsText> {/* Main paragraph text */}
+				<GcdsText tag="p" characterLimit="false">
+					{t("pages.landingPage.landingPagePara2").split("Observatory")[0]}
+					<a
+					href="https://observatory.alpha.phac.gc.ca/safeinputs-alpha-phac-aspc-gc-ca"
+					target="_blank"
+					rel="noopener noreferrer"
+					>
+					Observatory
+					</a>
+        			{t("pages.landingPage.landingPagePara2").split("Observatory")[1]}</GcdsText> 
+					<GcdsText tag="p" characterLimit="false">{t("pages.landingPage.landingPagePara3")}</GcdsText>
 				<div>
-					<GcdsHeading tag="h2" style={{ textAlign: "left" }}>{t("pages.landingPage.underHeader")}</GcdsHeading> {/* Section heading for API-related content */}
-					<GcdsText characterLimit="false">
+					{/* <GcdsHeading tag="h2" style={{ textAlign: "left" }}>{t("pages.landingPage.underHeader")}</GcdsHeading> {/* Section heading for API-related content */}
+					{/* <GcdsText characterLimit="false">
 						<em> {t("pages.landingPage.title")} </em>
-					</GcdsText>{" "}
-					
+					</GcdsText>{" "} 
+					 */}
 				</div>
 			</GcdsContainer>
 		</>

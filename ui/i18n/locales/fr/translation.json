@@ -144,7 +144,9 @@
 		"landingPage": {
 			"title": "Bienvenue sur le tableau de bord cATO Safe Inputs",
 			"underHeader": "Section 1",
-			"landingPagePara": "Ceci est une première tentative de tableau de bord pour certains des résultats du processus DevSecOps. Veuillez nous faire part de vos commentaires.",
+			"landingPagePara": "Ceci est une première tentative de création d'un tableau de bord pour certains des résultats du processus DevSecOps. Nous avons actuellement seulement quelques métriques, mais nous travaillons à les étendre de manière itérative.",
+			"landingPagePara2": "Vous pouvez trouver plus de détails, tels que les configurations GitHub et les métriques de disponibilité, dans l'Observatoire.",
+			"landingPagePara3": "Veuillez nous faire part de vos commentaires.",
 			"placeholder1": "",
 			"placeholder2": "Effacer les résultats"
 		}
