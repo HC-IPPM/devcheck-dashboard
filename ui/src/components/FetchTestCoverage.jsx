@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { GcdsHeading, GcdsText, GcdsButton } from "@cdssnc/gcds-components-react";
 import "./Table.css"; 
+import { useTranslation } from "react-i18next";
 
 
 function FetchTestCoverage() {
+  const { t } = useTranslation()
   const [files, setFiles] = useState([]);
   const [recentCommits, setRecentCommits] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -68,27 +70,27 @@ function FetchTestCoverage() {
   return (
     <div>
       {/* Most Recent Commits Table */}
-      <GcdsHeading tag="h2" visual-level="h2">Most Recent Commit per Module/Branch</GcdsHeading>
+      <GcdsHeading tag="h2" visual-level="h2">{t("pages.test-coverage.table.title_overview")}</GcdsHeading>
       <table className="gcds-table">
         <thead>
           <tr>
             <th>
-              <GcdsText tag="span">Module</GcdsText>
+              <GcdsText tag="span">{t("pages.test-coverage.table.module")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Branch</GcdsText>
+              <GcdsText tag="span">{t("pages.test-coverage.table.branch")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Commit SHA</GcdsText>
+              <GcdsText tag="span">{t("pages.test-coverage.table.commit_sha")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Date</GcdsText>
+              <GcdsText tag="span">{t("pages.test-coverage.table.date")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Test Coverage (%)</GcdsText>
+              <GcdsText tag="span">{t("pages.test-coverage.table.test_coverage")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">View</GcdsText>
+              <GcdsText tag="span">{t("pages.test-coverage.table.view")}</GcdsText>
             </th>
           </tr>
         </thead>
@@ -116,7 +118,7 @@ function FetchTestCoverage() {
                   button-style="link"
                   onClick={() => window.open(file.signedUrl, "_blank", "noopener,noreferrer")}
                 >
-                  View Results
+                  {t("pages.test-coverage.button.view_results")}
                 </GcdsButton>
               </td>
             </tr>
@@ -125,27 +127,27 @@ function FetchTestCoverage() {
       </table>
 
       {/* All Commits Table */}
-      <GcdsHeading tag="h2" visual-level="h2">All Commits</GcdsHeading>
+      <GcdsHeading tag="h2" visual-level="h2">{t("pages.test-coverage.table.title_sub")}</GcdsHeading>
       <table className="gcds-table">
-        <thead>
+      <thead>
           <tr>
             <th>
-              <GcdsText tag="span">Module</GcdsText>
+              <GcdsText tag="span">{t("pages.test-coverage.table.module")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Branch</GcdsText>
+              <GcdsText tag="span">{t("pages.test-coverage.table.branch")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Commit SHA</GcdsText>
+              <GcdsText tag="span">{t("pages.test-coverage.table.commit_sha")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Date</GcdsText>
+              <GcdsText tag="span">{t("pages.test-coverage.table.date")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Test Coverage (%)</GcdsText>
+              <GcdsText tag="span">{t("pages.test-coverage.table.test_coverage")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">View</GcdsText>
+              <GcdsText tag="span">{t("pages.test-coverage.table.view")}</GcdsText>
             </th>
           </tr>
         </thead>
@@ -173,7 +175,7 @@ function FetchTestCoverage() {
                   button-style="link"
                   onClick={() => window.open(file.signedUrl, "_blank", "noopener,noreferrer")}
                 >
-                  View Results
+                  {t("pages.test-coverage.button.view_results")}
                 </GcdsButton>
               </td>
             </tr>

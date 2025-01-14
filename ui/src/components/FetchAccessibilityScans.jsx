@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { GcdsHeading, GcdsText, GcdsButton } from "@cdssnc/gcds-components-react";
 // import "./FetchSBOM.css"; 
 import "./Table.css"; 
+import { useTranslation } from "react-i18next";
 
 function FetchAccessibilityScans() {
+  const { t } = useTranslation()
+
   const [files, setFiles] = useState([]);
   const [recentCommits, setRecentCommits] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -72,27 +75,27 @@ function FetchAccessibilityScans() {
   return (
     <div>
       {/* Most Recent Commits Table */}
-      <GcdsHeading tag="h2" visual-level="h2">Most Recent Commit per Branch</GcdsHeading>
+      <GcdsHeading tag="h2" visual-level="h2">{t("pages.accessibility.table.title_overview")}</GcdsHeading>
       <table className="gcds-table">
         <thead>
           <tr>
             <th>
-              <GcdsText tag="span">{`Branch`}</GcdsText>
+              <GcdsText tag="span">{t("pages.accessibility.table.branch")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">{`Commit SHA`}</GcdsText>
+              <GcdsText tag="span">{t("pages.accessibility.table.commit_sha")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">{`Date`}</GcdsText>
+              <GcdsText tag="span">{t("pages.accessibility.table.date")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">{`Issues`}</GcdsText>
+              <GcdsText tag="span">{t("pages.accessibility.table.issues")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">{`View Summary`}</GcdsText>
+              <GcdsText tag="span">{t("pages.accessibility.table.view_summary")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">{`View Full Results`}</GcdsText>
+              <GcdsText tag="span">{t("pages.accessibility.table.view_full_results")}</GcdsText>
             </th>
           </tr>
         </thead>
@@ -117,7 +120,7 @@ function FetchAccessibilityScans() {
                   button-style="primary"
                   onClick={() => handleViewSummary(file.summary)}
                 >
-                  View Summary
+                  {t("pages.accessibility.button.view_summary")}
                 </GcdsButton>
               </td>
               <td>
@@ -126,7 +129,7 @@ function FetchAccessibilityScans() {
                   button-style="link"
                   onClick={() => window.open(file.signedUrl, "_blank", "noopener,noreferrer")}
                 >
-                  View Full Results
+                  {t("pages.accessibility.button.view_full_results")}
                 </GcdsButton>
               </td>
             </tr>
@@ -135,30 +138,30 @@ function FetchAccessibilityScans() {
       </table>
 
       {/* All Commits Table */}
-      <GcdsHeading tag="h2" visual-level="h2">All Commits</GcdsHeading>
+      <GcdsHeading tag="h2" visual-level="h2">{t("pages.accessibility.table.title_sub")}</GcdsHeading>
       <table className="gcds-table">
       <thead>
-        <tr>
-          <th>
-            <GcdsText tag="span">{`Branch`}</GcdsText>
-          </th>
-          <th>
-            <GcdsText tag="span">{`Commit SHA`}</GcdsText>
-          </th>
-          <th>
-            <GcdsText tag="span">{`Date`}</GcdsText>
-          </th>
-          <th>
-            <GcdsText tag="span">{`Issues`}</GcdsText>
-          </th>
-          <th>
-            <GcdsText tag="span">{`View Summary`}</GcdsText>
-          </th>
-          <th>
-            <GcdsText tag="span">{`View Full Results`}</GcdsText>
-          </th>
-        </tr>
-      </thead>
+          <tr>
+            <th>
+              <GcdsText tag="span">{t("pages.accessibility.table.branch")}</GcdsText>
+            </th>
+            <th>
+              <GcdsText tag="span">{t("pages.accessibility.table.commit_sha")}</GcdsText>
+            </th>
+            <th>
+              <GcdsText tag="span">{t("pages.accessibility.table.date")}</GcdsText>
+            </th>
+            <th>
+              <GcdsText tag="span">{t("pages.accessibility.table.issues")}</GcdsText>
+            </th>
+            <th>
+              <GcdsText tag="span">{t("pages.accessibility.table.view_summary")}</GcdsText>
+            </th>
+            <th>
+              <GcdsText tag="span">{t("pages.accessibility.table.view_full_results")}</GcdsText>
+            </th>
+          </tr>
+        </thead>
 
         <tbody>
           {files.map((file, index) => (
@@ -181,7 +184,7 @@ function FetchAccessibilityScans() {
                   button-style="primary"
                   onClick={() => handleViewSummary(file.summary)}
                 >
-                  View Summary
+                  {t("pages.accessibility.button.view_summary")}
                 </GcdsButton>
               </td>
               <td>
@@ -190,7 +193,7 @@ function FetchAccessibilityScans() {
                   button-style="link"
                   onClick={() => window.open(file.signedUrl, "_blank", "noopener,noreferrer")}
                 >
-                  View Full Results
+                  {t("pages.accessibility.button.view_full_results")}
                 </GcdsButton>
               </td>
             </tr>

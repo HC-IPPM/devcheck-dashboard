@@ -1,8 +1,10 @@
 import { useLocation } from "react-router-dom";
 import { GcdsHeading, GcdsText, GcdsButton } from "@cdssnc/gcds-components-react";
 import "../../components/Table.css";
+import { useTranslation } from "react-i18next";
 
 function AccessibilitySummary() {
+  const { t } = useTranslation()
   const location = useLocation();
   const { summary } = location.state || {};
 
@@ -13,25 +15,25 @@ function AccessibilitySummary() {
   return (
     <div>
       <GcdsHeading tag="h1" visual-level="h1" style={{ textAlign: "left" }}>
-        Accessibility Summary
+      {t("pages.accessibility-summary.title")}
       </GcdsHeading>
 
       {/* Exemptions Section */}
       <section>
-        <GcdsHeading tag="h2" visual-level="h2">
-          Exemptions (bypassed IDs or URL patterns)
+        <GcdsHeading tag="h2" visual-level="h2" characterLimit="false">
+        {t("pages.accessibility-summary.table.title_exemptions")}
         </GcdsHeading>
         <table className="gcds-table">
           <thead>
             <tr>
               <th>
-                <GcdsText tag="span">Violation IDs</GcdsText>
+                <GcdsText tag="span">{t("pages.accessibility-summary.table.violation_ids")}</GcdsText>
               </th>
               <th>
-                <GcdsText tag="span">Incomplete IDs</GcdsText>
+                <GcdsText tag="span">{t("pages.accessibility-summary.table.incomplete_ids")}</GcdsText>
               </th>
               <th>
-                <GcdsText tag="span">URL Patterns</GcdsText>
+              <GcdsText tag="span">{t("pages.accessibility-summary.table.url_patterns")}</GcdsText>
               </th>
             </tr>
           </thead>
@@ -47,7 +49,7 @@ function AccessibilitySummary() {
                     ))}
                   </ul>
                 ) : (
-                  <GcdsText>No exempted violations.</GcdsText>
+                  ""
                 )}
               </td>
               <td>
@@ -85,23 +87,23 @@ function AccessibilitySummary() {
 
       {/* URLs Section */}
       <section>
-        <GcdsHeading tag="h2" visual-level="h2">
-          Accessibility Issues Identified During Scan
+        <GcdsHeading tag="h2" visual-level="h2" characterLimit="false">
+          {t("pages.accessibility-summary.table.title_issues")}
         </GcdsHeading>
         <table className="gcds-table">
           <thead>
             <tr>
               <th>
-                <GcdsText tag="span">Endpoints</GcdsText>
+                <GcdsText tag="span">{t("pages.accessibility-summary.table.endpoints")}</GcdsText>
               </th>
               <th>
-                <GcdsText tag="span">All Violation IDs</GcdsText>
+                <GcdsText tag="span">{t("pages.accessibility-summary.table.all_violation_ids")}</GcdsText>
               </th>
               <th>
-                <GcdsText tag="span">Serious Impact Violation IDs</GcdsText>
+                <GcdsText tag="span">{t("pages.accessibility-summary.table.serious_violation_ids")}</GcdsText>
               </th>
               <th>
-                <GcdsText tag="span">Incomplete IDs</GcdsText>
+                <GcdsText tag="span">{t("pages.accessibility-summary.table.incomplete_ids")}</GcdsText>
               </th>
             </tr>
           </thead>

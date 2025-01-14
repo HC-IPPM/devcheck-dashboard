@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { GcdsHeading, GcdsText, GcdsButton } from "@cdssnc/gcds-components-react";
+import { useTranslation } from "react-i18next";
 import "./Table.css"; 
 
 function FetchSBOM() {
+  const { t } = useTranslation()
+
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -50,13 +53,13 @@ function FetchSBOM() {
         <thead>
           <tr>
             <th>
-              <GcdsText tag="span">{`Commit SHA`}</GcdsText>
+              <GcdsText tag="span">{t("pages.sbom.table.sha")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">{`Date`}</GcdsText>
+              <GcdsText tag="span">{t("pages.sbom.table.date")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">{`View`}</GcdsText>
+              <GcdsText tag="span">{t("pages.sbom.table.view")}</GcdsText>
             </th>
           </tr>
         </thead>
@@ -75,7 +78,7 @@ function FetchSBOM() {
                   button-style="link"
                   onClick={() => window.open(file.signedUrl, "_blank", "noopener,noreferrer")}
                 >
-                  View SBOM
+                  {t("pages.sbom.button.view_sbom")}
                 </GcdsButton>
               </td>
             </tr>

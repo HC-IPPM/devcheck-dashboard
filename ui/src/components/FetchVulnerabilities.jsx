@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { GcdsHeading, GcdsText, GcdsButton } from "@cdssnc/gcds-components-react";
 import "./Table.css";
 import DetailedView from "./DetailedView";
+import { useTranslation } from "react-i18next";
 
 const severityOrder = ["CRITICAL", "HIGH", "MEDIUM", "LOW", "SEVERITY_UNSPECIFIED", "UNKNOWN"];
 
@@ -12,6 +13,7 @@ const sortBySeverity = (data) => {
 };
 
 function FetchVulnerabilities() {
+  const { t } = useTranslation()
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -59,34 +61,34 @@ function FetchVulnerabilities() {
   return (
     <div>
       <GcdsHeading tag="h2" visual-level="h2">
-        Vulnerability Overview
+      {t("pages.vulnerabilities.table.title_overview")}
       </GcdsHeading>
       <table className="gcds-table">
         <thead>
           <tr>
             <th>
-              <GcdsText tag="span">Vulnerability ID</GcdsText>
+              <GcdsText tag="span">{t("pages.vulnerabilities.table.vulnerability_id")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Package</GcdsText>
+              <GcdsText tag="span">{t("pages.vulnerabilities.table.package")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Version</GcdsText>
+              <GcdsText tag="span">{t("pages.vulnerabilities.table.version")}</GcdsText>
             </th>
             <th className="image-name-column">
-              <GcdsText tag="span">Image Name</GcdsText>
+              <GcdsText tag="span">{t("pages.vulnerabilities.table.image_name")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Severity</GcdsText>
+              <GcdsText tag="span">{t("pages.vulnerabilities.table.severity")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Fix Available</GcdsText>
+              <GcdsText tag="span">{t("pages.vulnerabilities.table.fix_available")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">Date</GcdsText>
+              <GcdsText tag="span">{t("pages.vulnerabilities.table.date")}</GcdsText>
             </th>
             <th>
-              <GcdsText tag="span">View</GcdsText>
+              <GcdsText tag="span">{t("pages.vulnerabilities.table.view")}</GcdsText>
             </th>
           </tr>
         </thead>
@@ -120,7 +122,7 @@ function FetchVulnerabilities() {
                   button-style="link"
                   onClick={() => handleViewMore(entry)}
                 >
-                  View Commits
+                  {t("pages.vulnerabilities.button.view_commits")}
                 </GcdsButton>
               </td>
             </tr>

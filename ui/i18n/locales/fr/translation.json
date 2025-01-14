@@ -6,19 +6,20 @@
 	},
 	"footer": {
 		"additionalNav": "Navigation supplémentaire",
-		"faq": "Foire aux questions",
+		"faq": "Foire aux questions", 
 		"contactUs": "Contactez-nous"
 	},
 	"menu": {
 		"title": "Tableau de bord cATO Safe Inputs",
 		"home": "Accueil",
-		"bulkFile": "Fichiers groupés",
-		"addressBulkFile": "Entrée groupée de géocodage d'adresses",
-		"reverseBulkFile": "Entrée groupée de géolocalisation inverse",
+		"bulkFile": "Fichiers en vrac",
+		"addressBulkFile": "Entrée de géocodage d'adresse en vrac",
+		"reverseBulkFile": "Entrée de géolocalisation inverse en vrac",
 		"developers": "Développeurs",
 		"SBOM": "SBOM",
 		"testCoverage": "Couverture des tests",
-		"accessibility": "Accessibilité",
+		"accessibility": "Accessibilité", 
+		"accessibility-summary": "Résumé de l'accessibilité",
 		"vulnerabilities": "Vulnérabilités",
 		"contactUs": "Contactez-nous",
 		"test-coverage": "Couverture des tests",
@@ -27,47 +28,113 @@
 	"pages": {
 		"contactUs": {
 			"title": "Contactez-nous",
-			"subTitle": "Veuillez saisir vos coordonnées ci-dessous. Une fois terminé, envoyez le formulaire à l'aide du bouton « envoyer » ci-dessous. Une fois le formulaire envoyé, votre application de messagerie s'ouvrira. Vous pouvez également nous contacter directement par e-mail :",
+			"subTitle": "Veuillez entrer vos coordonnées ci-dessous. Une fois terminé, envoyez le formulaire en utilisant le bouton « soumettre » ci-dessous. Une fois le formulaire envoyé, votre application de messagerie s'ouvrira. Vous pouvez également nous contacter directement par e-mail :",
 			"subject": {
 				"title": "Raisons de nous contacter",
 				"hintMessage": "Choisissez 1 option",
 				"select": "Raisons de nous contacter",
 				"feedback": "Commentaires ou suggestions",
-				"bug": "Signaler un bogue ou un problème",
-				"helpOption": "Demander de l'aide ou un support",
-				"inquire": "Demander des informations sur les produits ou services",
-				"followingUp": "Faire un suivi d'une demande précédente"
+				"bug": "Signaler un bug ou un problème",
+				"helpOption": "Demande d'assistance ou d'aide",
+				"inquire": "Renseignement sur les produits ou services",
+				"followingUp": "Suivi d'une demande précédente"
 			},
 			"formTitle": "Donnez votre avis, demandez de l'aide ou contactez-nous pour en savoir plus.",
 			"name": "Nom",
 			"email": "E-mail",
 			"message": "Message",
 			"required": "requis",
-			"submitButton": "Envoyer",
+			"submitButton": "Soumettre",
 			"thankYou": {
 				"title": "Merci pour votre message",
-				"message": "Nous avons bien reçu votre message et vous remercions de nous avoir contactés. Nous reviendrons vers vous dès que possible."
+				"message": "Nous avons reçu votre message et vous remercions de nous avoir contactés. Nous vous répondrons dès que possible."
 			}
 		},
 		"sbom": {
 			"title": "Liste de matériaux logiciels (SBOM)",
 			"table": {
-				"sha": "Commit SHA",
+				"sha": "SHA de commit",
 				"date": "Date",
-				"view": "Voir",
+				"view": "Voir", 
 				"view_link": "Voir SBOM"
+			  },
+			"button": {
+				"view_sbom": "Voir SBOM"
 			},
-			"para": "Politique de rétention des objets de 30 jours."
+			"para": "Politique de rétention des objets de 30 jours. SBOM collecté pour l'ensemble de l'application lors de tout push sur la branche principale."
 		},
 		"accessibility": {
-			"title": "Scans de conformité d'accessibilité"
+			"title": "Analyses de conformité d'accessibilité",
+			"para": "Politique de rétention des objets de 30 jours. Les analyses d'accessibilité sont effectuées lors d'un commit sur la base de code UI sur n'importe quelle branche.",
+			"table": {
+				"title_overview": "Dernier commit par branche",
+				"title_sub": "Tous les commits",
+				"branch": "Branche",
+				"issues": "Problèmes",
+				"view": "Voir",
+				"test_coverage": "Couverture des tests (%)",
+				"view_summary": "Voir le résumé",
+				"view_full_results": "Voir les résultats complets",
+				"date": "Date", 
+				"commit_sha": "SHA de commit"
+			},
+			"button": {
+				"view_full_results": "Voir les résultats complets",
+				"view_summary": "Voir le résumé"
+			}
+		},
+		"accessibility-summary": {
+			"title": "Résumé de l'analyse d'accessibilité",
+			"table": {
+				"title_exemptions": "Exemptions (ID ou modèles d'URL contournés)",
+				"title_issues": "Problèmes d'accessibilité identifiés lors de l'analyse",
+				"violation_ids": "ID de violation",
+				"incomplete_ids": "ID incomplets",
+				"url_patterns": "Modèles d'URL",
+				"endpoints": "Points d'extrémité",
+				"all_violation_ids": "Tous les ID de violation", 
+				"serious_impact_violation_ids": "ID de violation d'impact sérieux"
+			}
 		},
 		"test-coverage": {
-			"title": "Couverture des tests"
+			"title": "Couverture des tests",
+			"para": "Politique de rétention des objets de 30 jours. La couverture indiquée ici est le total des déclarations - cliquez sur « Voir les résultats » pour en savoir plus.",
+			"table": {
+				"title_overview": "Dernier commit par module/branche",
+				"title_sub": "Tous les commits",
+				"module": "Module",
+				"branch": "Branche",
+				"test_coverage": "Couverture des tests (%)",
+				"view": "Voir",
+				"date": "Date", 
+				"commit_sha": "SHA de commit"
+			},
+			"button": {
+				"view_results": "Voir les résultats"
+			}
 		},
 		"vulnerabilities": {
 			"title": "Vulnérabilités",
-			"para": "<0>Renovate</0> analyse en continu le code source dans GitHub, ce qui inclut toutes les dépendances de développement, à la recherche de vulnérabilités. Renovate créera automatiquement des PR avec des correctifs et mettra à jour ces dépendances. Les vulnérabilités représentées ici sont celles détectées par le registre d'artefacts. Cela se fait automatiquement lorsqu'une nouvelle image est poussée, ainsi que plusieurs fois par jour jusqu'à ce que l'image du conteneur ait un mois. Les objets listés ici ont également une politique de rétention de 30 jours."
+			"para": "<0>Renovate</0> analyse en continu le code source dans GitHub, y compris les dépendances de développement, pour détecter les vulnérabilités. Renovate créera automatiquement des PR avec des correctifs pour ces dépendances. Les vulnérabilités présentées ici sont celles détectées par le registre des artefacts. Cela se fait automatiquement lorsqu'une nouvelle image est poussée, ainsi que plusieurs fois par jour jusqu'à ce que l'image conteneur ait un mois. Les objets répertoriés ici ont également une politique de rétention de 30 jours.",
+			"table": {
+				"title_overview": "Aperçu des vulnérabilités",
+				"title_sub": "Tous les commits",
+				"title_detailed_view": "Commits pour {{vulnerabilityId}} - {{packageName}}-{{version}} sur {{imageName}}",
+				"vulnerability_id": "ID de vulnérabilité",
+				"package": "Package",
+				"version": "version",
+				"image_name": "Nom de l'image",
+				"severity": "Gravité",
+				"fix_available": "Correctif disponible",
+				"view": "Voir",
+				"date": "Date", 
+				"commit_sha": "SHA de commit"
+			},
+			"button": {
+				"view_commits": "Voir les commits",
+				"view_file": "Voir le fichier",
+				"close": "Fermer"
+			}
 		},
 		"faq": {
 			"title": "Foire aux questions",
@@ -77,13 +144,13 @@
 		"landingPage": {
 			"title": "Bienvenue sur le tableau de bord cATO Safe Inputs",
 			"underHeader": "Section 1",
-			"landingPagePara": "Ceci est un premier effort pour mettre en tableau certains des résultats du processus DevSecOps. Veuillez nous faire savoir si vous avez des commentaires.",
+			"landingPagePara": "Ceci est une première tentative de tableau de bord pour certains des résultats du processus DevSecOps. Veuillez nous faire part de vos commentaires.",
 			"placeholder1": "",
 			"placeholder2": "Effacer les résultats"
 		}
 	},
 	"loading": "Chargement",
-	"navigateToSection": "Naviguer vers la section",
+	"navigateToSection": "Aller à la section",
 	"search": "Rechercher",
 	"tableOfContents": "Table des matières",
 	"reset": "Réinitialiser"
