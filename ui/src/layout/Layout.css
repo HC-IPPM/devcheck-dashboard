@@ -1,0 +1,22 @@
+.skip-to-content-link {
+    position: absolute;
+    transform: translate(-50%, -1000%);  
+    transition: transform 0.3s;
+    background-color: rgb(38, 55, 74);
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 5px;
+    text-align: center;
+    z-index: -1; /* Keeps it out of focus when not focused */
+  }
+  
+  .skip-to-content-link:focus {
+    top: 10px; 
+    transform: translate(-50%, 0%); /* Moves it on-screen  */
+    z-index: 501; /* Brings it to the front */
+  }
+
+  .breadcrumbs-container {
+    text-align: left;
+  }

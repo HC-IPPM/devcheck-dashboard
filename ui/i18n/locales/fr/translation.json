@@ -1,0 +1,90 @@
+{
+	"components": {
+		"apiFetch": {
+			"loading": "Chargement, veuillez patienter"
+		}
+	},
+	"footer": {
+		"additionalNav": "Navigation supplémentaire",
+		"faq": "Foire aux questions",
+		"contactUs": "Contactez-nous"
+	},
+	"menu": {
+		"title": "Tableau de bord cATO Safe Inputs",
+		"home": "Accueil",
+		"bulkFile": "Fichiers groupés",
+		"addressBulkFile": "Entrée groupée de géocodage d'adresses",
+		"reverseBulkFile": "Entrée groupée de géolocalisation inverse",
+		"developers": "Développeurs",
+		"SBOM": "SBOM",
+		"testCoverage": "Couverture des tests",
+		"accessibility": "Accessibilité",
+		"vulnerabilities": "Vulnérabilités",
+		"contactUs": "Contactez-nous",
+		"test-coverage": "Couverture des tests",
+		"skipNav": "Passer au contenu principal"
+	},
+	"pages": {
+		"contactUs": {
+			"title": "Contactez-nous",
+			"subTitle": "Veuillez saisir vos coordonnées ci-dessous. Une fois terminé, envoyez le formulaire à l'aide du bouton « envoyer » ci-dessous. Une fois le formulaire envoyé, votre application de messagerie s'ouvrira. Vous pouvez également nous contacter directement par e-mail :",
+			"subject": {
+				"title": "Raisons de nous contacter",
+				"hintMessage": "Choisissez 1 option",
+				"select": "Raisons de nous contacter",
+				"feedback": "Commentaires ou suggestions",
+				"bug": "Signaler un bogue ou un problème",
+				"helpOption": "Demander de l'aide ou un support",
+				"inquire": "Demander des informations sur les produits ou services",
+				"followingUp": "Faire un suivi d'une demande précédente"
+			},
+			"formTitle": "Donnez votre avis, demandez de l'aide ou contactez-nous pour en savoir plus.",
+			"name": "Nom",
+			"email": "E-mail",
+			"message": "Message",
+			"required": "requis",
+			"submitButton": "Envoyer",
+			"thankYou": {
+				"title": "Merci pour votre message",
+				"message": "Nous avons bien reçu votre message et vous remercions de nous avoir contactés. Nous reviendrons vers vous dès que possible."
+			}
+		},
+		"sbom": {
+			"title": "Liste de matériaux logiciels (SBOM)",
+			"table": {
+				"sha": "Commit SHA",
+				"date": "Date",
+				"view": "Voir",
+				"view_link": "Voir SBOM"
+			},
+			"para": "Politique de rétention des objets de 30 jours."
+		},
+		"accessibility": {
+			"title": "Scans de conformité d'accessibilité"
+		},
+		"test-coverage": {
+			"title": "Couverture des tests"
+		},
+		"vulnerabilities": {
+			"title": "Vulnérabilités",
+			"para": "<0>Renovate</0> analyse en continu le code source dans GitHub, ce qui inclut toutes les dépendances de développement, à la recherche de vulnérabilités. Renovate créera automatiquement des PR avec des correctifs et mettra à jour ces dépendances. Les vulnérabilités représentées ici sont celles détectées par le registre d'artefacts. Cela se fait automatiquement lorsqu'une nouvelle image est poussée, ainsi que plusieurs fois par jour jusqu'à ce que l'image du conteneur ait un mois. Les objets listés ici ont également une politique de rétention de 30 jours."
+		},
+		"faq": {
+			"title": "Foire aux questions",
+			"nav": "Navigation",
+			"category": "Catégorie"
+		},
+		"landingPage": {
+			"title": "Bienvenue sur le tableau de bord cATO Safe Inputs",
+			"underHeader": "Section 1",
+			"landingPagePara": "Ceci est un premier effort pour mettre en tableau certains des résultats du processus DevSecOps. Veuillez nous faire savoir si vous avez des commentaires.",
+			"placeholder1": "",
+			"placeholder2": "Effacer les résultats"
+		}
+	},
+	"loading": "Chargement",
+	"navigateToSection": "Naviguer vers la section",
+	"search": "Rechercher",
+	"tableOfContents": "Table des matières",
+	"reset": "Réinitialiser"
+}
