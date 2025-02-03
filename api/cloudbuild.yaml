@@ -1,0 +1,47 @@
+steps:
+  # Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - '${REGION}-docker.pkg.dev/${PROJECT_ID}/${ARTIFACT_REGISTRY_REPO}/api:latest'
+      - '.'
+
+  # Step 2: Push the Docker image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - '${REGION}-docker.pkg.dev/${PROJECT_ID}/${ARTIFACT_REGISTRY_REPO}/api:latest'
+
+  # Step 3: Deploy the image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'api'
+      - '--image'
+      - '${REGION}-docker.pkg.dev/${PROJECT_ID}/${ARTIFACT_REGISTRY_REPO}/api:latest'
+      - '--platform'
+      - 'managed'
+      - '--region'
+      - '${REGION}' 
+      # - '--allow-unauthenticated'  # Use this if the API is public
+
+# Optional: Specify the service account used by Cloud Build
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+substitutions:
+  _REGION: "northamerica-northeast1"
+  _SERVICE_NAME: "dashboard-api"
+  _PROJECT_ID: "phx-01hwmw2c1r4"
+  _ARTIFACT_REGISTRY_REPO: "dashboard-api"
+  # _PROJECT_NUMBER: "744920990938"
+
+# TO RUN (manually)
+# gcloud builds submit --config cloudbuild.yaml --region $REGION
+
+docker build -t northamerica-northeast1-docker.pkg.dev/phx-01hwmw2c1r4/dashboard/api .
+docker push northamerica-northeast1-docker.pkg.dev/phx-01hwmw2c1r4/dashboard/api
+gcloud run deploy api --image northamerica-northeast1-docker.pkg.dev/phx-01hwmw2c1r4/dashboard/api --region northamerica-northeast1 --platform managed

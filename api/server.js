@@ -1,4 +1,5 @@
 import express from "express";
+import fetch from 'node-fetch';
 import { Storage } from "@google-cloud/storage";
 import cors from "cors";
 import { listFiles } from "./src/listFiles.js";
@@ -12,34 +13,89 @@ const API_URL = process.env.API_URL || "https://localhost:3000";
 console.log(API_URL)
 const UI_URL = process.env.UI_URL || "https://localhost:5173";
 console.log(UI_URL)
+const CLOUDRUN_API_URL = process.env.CLOUDRUN_API_URL;
+const CLOUDRUN_UI_URL = process.env.CLOUDRUN_UI_URL;
 const BUCKET_NAME =
   process.env.BUCKET_NAME || "safe-inputs-devsecops-outputs-for-dashboard";
 const KEY_PATH = process.env.KEY_PATH || "./sa-key.json";
+const apiAudience = process.env.API_AUDIENCE || "https://api-oduxqcmvlq-nn.a.run.app";
 
+const PRIVATE_API_URL = "https://api-oduxqcmvlq-nn.a.run.app"
 
 const allowedOrigins = [
-  API_URL,
+  // API_URL,
   UI_URL,
+  // CLOUDRUN_API_URL,
+  CLOUDRUN_UI_URL,
+  // "https://api-744920990938.northamerica-northeast1.run.app",
+  // "https://api-oduxqcmvlq-nn.a.run.app",
+  "https://ui-744920990938.northamerica-northeast1.run.app", 
+  "https://ui"
 ];
 
-app.use(
+// app.use((req, res, next) => {
+//   res.setHeader(
+//     "Access-Control-Allow-Origin",
+//     req.headers.origin || "https://ui-744920990938.northamerica-northeast1.run.app"
+//   );
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+//   res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+//   res.setHeader("Access-Control-Allow-Credentials", "true");
+//   console.log("CORS headers set for origin:", req.headers.origin);
+//   next();
+// });
+
+// // Handle OPTIONS preflight requests
+// app.options("*", (req, res) => {
+//   res.set("Access-Control-Allow-Origin", req.headers.origin || "*");
+//   res.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+//   res.set("Access-Control-Allow-Headers", "Authorization, Content-Type");
+//   res.set("Access-Control-Allow-Credentials", "true");
+//   res.status(204).end();
+// });
+
+app.use(cors({ origin: true, credentials: true }));
+app.options("*", cors());
+
+// Load the service account key file (this will be a gcp secret in the future!)
+const storage = new Storage({ keyFilename: KEY_PATH });
+
+
+app.get(
+  "/get-identity-token",
   cors({
     origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
+        console.log('origin being used here:', origin)
         callback(null, true);
       } else {
+        console.error(`CORS Error: Origin ${origin} not allowed`);
         callback(new Error("Not allowed by CORS"));
       }
     },
     credentials: true,
   }),
+  async (req, res) => {
+    try {
+      const response = await fetch(
+        `http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience=${apiAudience}`,
+        {
+          headers: { "Metadata-Flavor": "Google" },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch identity token");
+      }
+
+      const token = await response.text();
+      res.json({ token });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Error fetching identity token");
+    }
+  }
 );
-
-// app.use(cors({ origin: "*" }));
-
-
-// Load the service account key file (this will be a gcp secret in the future!)
-const storage = new Storage({ keyFilename: KEY_PATH });
 
 // Endpoint to list files in the bucket
 app.get("/", (req, res) => {
@@ -63,6 +119,79 @@ app.get("/listFiles", async (req, res) => {
   }
 });
 
+// app.get(
+//   "/get-identity-token",
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         console.error(`CORS Error: Origin ${origin} not allowed`);
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true,
+//   }),
+//   async (req, res) => {
+//     try {
+//       const response = await fetch(
+//         `http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience=${apiAudience}`,
+//         {
+//           headers: { "Metadata-Flavor": "Google" },
+//         }
+//       );
+
+//       if (!response.ok) {
+//         throw new Error("Failed to fetch identity token");
+//       }
+
+//       const token = await response.text();
+//       res.json({ token });
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).send("Error fetching identity token");
+//     }
+//   }
+// );
+
+
+app.get("/proxy/sbom", async (req, res) => {
+  try {
+    const audience = "https://api-744920990938.northamerica-northeast1.run.app";
+
+    // Fetch the identity token from the metadata server
+    const response = await fetch(
+      `http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=${audience}`,
+      {
+        headers: { "Metadata-Flavor": "Google" },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch identity token");
+    }
+
+    const token = await response.text();
+
+    // Make the authenticated request to the target API
+    const apiResponse = await fetch(`${audience}/SBOM`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!apiResponse.ok) {
+      throw new Error(`API responded with status: ${apiResponse.status}`);
+    }
+
+    const data = await apiResponse.json();
+    res.json(data);
+  } catch (error) {
+    console.error("Error in /proxy/sbom:", error.message);
+    res.status(500).send("Failed to fetch SBOM data");
+  }
+});
 
 
 app.get("/vulnerabilities", async (req, res) => {
@@ -159,7 +288,6 @@ app.get("/vulnerabilities", async (req, res) => {
     res.status(500).send("Error fetching vulnerabilities: " + error.message);
   }
 });
-
 
 
 
@@ -326,5 +454,5 @@ app.get("/test-coverage", async (req, res) => {
 
 app.listen(port, "0.0.0.0", () => {
   // console.log(`Server running on http://localhost:${port}`);
-  console.log(`Server running on ${API_URL}`);
+  console.log(`Server running on ${CLOUDRUN_API_URL}`);
 });

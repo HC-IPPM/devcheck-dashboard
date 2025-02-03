@@ -13,6 +13,9 @@ function FetchTestCoverage() {
 
   const API_URL = import.meta.env.VITE_API_URL || "https://localhost:3000";
 
+  console.log('API_URL',API_URL)
+  console.log('import.meta.env', import.meta.env)
+
   useEffect(() => {
     const fetchData = async () => {
       try {

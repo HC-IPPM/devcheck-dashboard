@@ -7,11 +7,14 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pre:docker": "docker build -t ui .",
+    "docker": "docker run --rm --env-file .env --network host  -p 5173:5173 ui"
   },
   "dependencies": {
     "@cdssnc/gcds-components": "^0.28.0",
     "@cdssnc/gcds-components-react": "^0.28.0",
+    "google-auth-library": "^9.15.0",
     "i18next": "^24.1.0",
     "i18next-browser-languagedetector": "^8.0.2",
     "i18next-http-backend": "^3.0.1",
