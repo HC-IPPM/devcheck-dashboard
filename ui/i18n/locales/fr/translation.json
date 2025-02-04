@@ -148,7 +148,8 @@
 			"landingPagePara2": "Vous pouvez trouver plus de détails, tels que les configurations GitHub et les métriques de disponibilité, dans l'Observatoire.",
 			"landingPagePara3": "Veuillez nous faire part de vos commentaires.",
 			"placeholder1": "",
-			"placeholder2": "Effacer les résultats"
+			"placeholder2": "Effacer les résultats",
+			"vulnerabilitySummary": "Vulnérabilités détectées dans le dépôt d’images"
 		}
 	},
 	"loading": "Chargement",

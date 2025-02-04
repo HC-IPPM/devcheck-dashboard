@@ -148,7 +148,8 @@
 			"landingPagePara2": "More details such as GitHub configurations and uptime metrics can be found in Observatory. ",
 			"landingPagePara3": "Please let us know if you have any feedback.",
 			"placeholder1": "",
-			"placeholder2": "Clear the Results"
+			"placeholder2": "Clear the Results",
+			"vulnerabilitySummary": "Vulnerabilities found in image repository"
 		}
 	},
 	"loading": "Loading",
