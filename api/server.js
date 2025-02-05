@@ -303,6 +303,8 @@ app.get("/test-coverage", async (req, res) => {
 
         // Get coverage from total.statements.pct
         const coverage = jsonData.total?.statements?.pct || "Unknown";
+        const difference = jsonData.difference_from_last_commit?.statements_pct ?? "N/A";
+
 
         return {
           service,
@@ -310,6 +312,7 @@ app.get("/test-coverage", async (req, res) => {
           shortSha,
           date: updatedDate,
           coverage,
+          difference,
           signedUrl,
         };
       }),

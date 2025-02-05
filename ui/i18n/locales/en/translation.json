@@ -105,6 +105,7 @@
 				"module": "Module",
 				"branch": "Branch",
 				"test_coverage": "Test Coverage (%)",
+				"test_coverage_difference": "Difference from previous commit (%)",
 				"view": "View",
 				"date": "Date", 
 				"commit_sha": "Commit SHA"
@@ -149,7 +150,14 @@
 			"landingPagePara3": "Please let us know if you have any feedback.",
 			"placeholder1": "",
 			"placeholder2": "Clear the Results",
-			"vulnerabilitySummary": "Vulnerabilities found in image repository"
+			"vulnerabilityTitle": "Vulnerabilities", 
+			"vulnerabilityText": "Discovered by Artifact Registry.",
+			"accessibilityTitle": "Accessibility Issues",
+			"accessibilityText": "High level summary.",
+			"codeCoverageTitle": "Code Coverage Trends",
+			"codeCoverageText": "words go here?",
+			"controlComplianceTitle": "Accessibility Issues",
+			"controlComplianceText": "Using Kyverno - only a handful at the moment."
 		}
 	},
 	"loading": "Loading",

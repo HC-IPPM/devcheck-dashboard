@@ -90,6 +90,9 @@ function FetchTestCoverage() {
               <GcdsText tag="span">{t("pages.test-coverage.table.test_coverage")}</GcdsText>
             </th>
             <th>
+              <GcdsText tag="span">{t("pages.test-coverage.table.test_coverage_difference")}</GcdsText>
+            </th>
+            <th>
               <GcdsText tag="span">{t("pages.test-coverage.table.view")}</GcdsText>
             </th>
           </tr>
@@ -111,6 +114,9 @@ function FetchTestCoverage() {
               </td>
               <td>
                 <GcdsText>{file.coverage}</GcdsText>
+              </td>
+              <td>
+                <GcdsText>{file.difference}</GcdsText>
               </td>
               <td>
                 <GcdsButton
@@ -147,6 +153,9 @@ function FetchTestCoverage() {
               <GcdsText tag="span">{t("pages.test-coverage.table.test_coverage")}</GcdsText>
             </th>
             <th>
+              <GcdsText tag="span">{t("pages.test-coverage.table.test_coverage_difference")}</GcdsText>
+            </th>
+            <th>
               <GcdsText tag="span">{t("pages.test-coverage.table.view")}</GcdsText>
             </th>
           </tr>
@@ -168,6 +177,9 @@ function FetchTestCoverage() {
               </td>
               <td>
                 <GcdsText>{file.coverage}</GcdsText>
+              </td>
+              <td>
+                <GcdsText>{file.difference}</GcdsText>
               </td>
               <td>
                 <GcdsButton
