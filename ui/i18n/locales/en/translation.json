@@ -145,7 +145,7 @@
 		"landingPage": {
 			"title": "Welcome to the cATO Safe Inputs Dashboard",
 			"underHeader": "Section 1",
-			"landingPagePara": "This is an inital effort at dashboarding some of the outputs from the DevSecOps process. We only have a handful of metrics at the moment, but working on iteratively expanding this. ",
+			"landingPagePara": "This is an inital effort at dashboarding some of the outputs from the DevSecOps process. We only have a handful of metrics at the moment, but working to iteratively expand this.",
 			"landingPagePara2": "More details such as GitHub configurations and uptime metrics can be found in Observatory. ",
 			"landingPagePara3": "Please let us know if you have any feedback.",
 			"placeholder1": "",
@@ -153,10 +153,10 @@
 			"vulnerabilityTitle": "Vulnerabilities", 
 			"vulnerabilityText": "Discovered by Artifact Registry.",
 			"accessibilityTitle": "Accessibility Issues",
-			"accessibilityText": "High level summary.",
+			"accessibilityText": "High level summary - most recent commit per branch.",
 			"codeCoverageTitle": "Code Coverage Trends",
-			"codeCoverageText": "words go here?",
-			"controlComplianceTitle": "Accessibility Issues",
+			"codeCoverageText": "Main branch - see Code Coverage section for all branches.",
+			"controlComplianceTitle": "Control Compliance Overview",
 			"controlComplianceText": "Using Kyverno - only a handful at the moment."
 		}
 	},
