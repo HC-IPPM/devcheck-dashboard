@@ -100,7 +100,7 @@ function AccessibilitySummary() {
                 <GcdsText tag="span">{t("pages.accessibility-summary.table.all_violation_ids")}</GcdsText>
               </th>
               <th>
-                <GcdsText tag="span">{t("pages.accessibility-summary.table.serious_violation_ids")}</GcdsText>
+                <GcdsText tag="span">{t("pages.accessibility-summary.table.serious_impact_violation_ids")}</GcdsText>
               </th>
               <th>
                 <GcdsText tag="span">{t("pages.accessibility-summary.table.incomplete_ids")}</GcdsText>

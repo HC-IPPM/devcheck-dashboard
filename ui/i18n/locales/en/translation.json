@@ -90,6 +90,7 @@
 				"title_issues": "Accessibility Issues Identified During Scan",
 				"violation_ids": "Violation IDs",
 				"incomplete_ids": "Incomplete IDs",
+				"non_serious_violation_ids": "All other Violation IDs",
 				"url_patterns": "URL Patterns",
 				"endpoints": "Endpoints",
 				"all_violation_ids": "All Violation IDs", 
@@ -130,6 +131,14 @@
 				"view": "View",
 				"date": "Date", 
 				"commit_sha": "Commit SHA"
+			},
+			"severity": {
+				"critical": "Critical",
+				"high": "High",
+				"medium": "Medium",
+				"low": "Low",
+				"severity_unspecified": "Unspecified",
+				"unknown": "Unknown"
 			},
 			"button":{
 				"view_commits": "View Commits",
