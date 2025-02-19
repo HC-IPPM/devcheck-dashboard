@@ -12,6 +12,8 @@
   "dependencies": {
     "@cdssnc/gcds-components": "^0.28.0",
     "@cdssnc/gcds-components-react": "^0.28.0",
+    "font-awesome": "^4.7.0",
+    "framer-motion": "^12.4.5",
     "i18next": "^24.1.0",
     "i18next-browser-languagedetector": "^8.0.2",
     "i18next-http-backend": "^3.0.1",
