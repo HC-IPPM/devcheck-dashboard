@@ -8,6 +8,7 @@ import AccessibilitySummary from "./pages/accessibility/AccessibilitySummary";
 import SBOM from "./pages/SBOM/SBOM";
 import TestCoverage from "./pages/testCoverage/TestCoverage";
 import Vulnerabilities from "./pages/vulnerabilities/Vulnerabilities";
+import ControlCompliance from "./pages/controlCompliance/ControlCompliance";
 import ContactUs from "./pages/contactUs/ContactUs";
 import NoPage from "./pages/NoPage";
 import "./i18n";
@@ -23,6 +24,7 @@ function App() {
 		  <Route path="test-coverage" element={<TestCoverage />} />
 		  <Route path="vulnerabilities" element={<Vulnerabilities />} />
 		  <Route path="/accessibility-summary" element={<AccessibilitySummary />} />
+		  <Route path="/controls" element={<ControlCompliance />} />
 		  <Route path="*" element={<NoPage />} />
 		</Route>
 	  </Routes>
