@@ -18,9 +18,10 @@ export default function Layout() {
 		  "/contact-us": t("pages.contactUs.title"),
 		  "/accessibility": t("pages.accessibility.title"),
 		  "/accessibility-summary": t("pages.accessibility-summary.title"),
-		  "/SBOM": t("pages.SBOM.title"),
+		  "/SBOM": t("pages.sbom.title"),
 		  "/test-coverage": t("pages.test-coverage.title"),
 		  "/vulnerabilities": t("pages.vulnerabilities.title"),
+		  "/controls": t("pages.control-compliance.title"),
 		};
 
 		// Set the title based on the current path
@@ -84,6 +85,9 @@ export default function Layout() {
 				  current={location.pathname === "/vulnerabilities" ? true : undefined}
 				>
 				  {t("menu.vulnerabilities")}
+				</GcdsNavLink>
+				<GcdsNavLink href="/controls" current={location.pathname === "/controls" ? true : undefined}>
+					{t("menu.controls")}
 				</GcdsNavLink>
 			  </GcdsTopNav>
 			</div>
