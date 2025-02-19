@@ -1,5 +1,5 @@
 import { GcdsText } from "@cdssnc/gcds-components-react";
-
+import "./Table.css";
 /**
  * Reusable table component for displaying structured data.
  * @param {Object} props

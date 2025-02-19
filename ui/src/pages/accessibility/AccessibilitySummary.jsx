@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
-import { GcdsHeading, GcdsText, GcdsButton } from "@cdssnc/gcds-components-react";
-import "../../components/Table.css";
+import { GcdsHeading, GcdsText } from "@cdssnc/gcds-components-react";
+// import "../../components/Table.css";
 import { useTranslation } from "react-i18next";
 
 function AccessibilitySummary() {
