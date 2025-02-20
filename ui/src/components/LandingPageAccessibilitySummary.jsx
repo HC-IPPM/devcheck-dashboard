@@ -14,12 +14,12 @@ export default function AccessibilityScanSummary() {
   const processedFiles = data.map(file => {
     // populate issues column with the highest violation severity
     const issues = file.summary.urlsWithSeriousImpactViolations.length > 0
-      ? "Serious Violations"
+      ? t("pages.accessibility-summary.table.serious_impact_violation_ids") 
       : file.summary.urlsWithViolations.length > 0
-      ? "Violations"
+      ? t("pages.accessibility-summary.table.non_serious_violation_ids") 
       : file.summary.urlsWithIncompletes.length > 0
-      ? "Incompletes"
-      : "None";
+      ? t("pages.accessibility-summary.table.incomplete_ids") 
+      : t("pages.accessibility-summary.table.status_none");
 
     return {
       branch: file.branchName,
@@ -32,7 +32,7 @@ export default function AccessibilityScanSummary() {
         .filter(id => !file.summary.urlsWithSeriousImpactViolations.flatMap(([_, v]) => v).includes(id))
       )],
       incompleteViolations: [...new Set(file.summary.urlsWithIncompletes.flatMap(([_, i]) => i))],
-      status: issues === "None" ? "✅ Pass" : "❌ Fail", // Status based on issue severity (right now if any it fails)
+      status: issues === "None" ? `✅ ${t("pages.landingPage.pass")}` : `❌ ${t("pages.landingPage.fail")}`, // Status based on issue severity (right now if any it fails)
     };
   });
 
