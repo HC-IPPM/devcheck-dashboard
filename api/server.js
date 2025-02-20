@@ -67,39 +67,95 @@ app.get("/listFiles", async (req, res) => {
 
 app.get("/vulnerabilities", async (req, res) => {
   try {
-    console.log("Fetching files from bucket...");
-    const fileNames = await listFiles(storage, BUCKET_NAME, "vulnerabilities");
+    console.log("Fetching commit SHAs from bucket...");
+    const commitFiles = await listFiles(storage, BUCKET_NAME, "COMMIT_SHAs/");
 
-    if (fileNames.length === 0) {
+    if (commitFiles.length === 0) {
+      console.log("No commit SHAs found.");
+      return res.status(404).json({ error: "No commit SHAs found." });
+    }
+
+    // Extract latest short SHAs dynamically
+    const latestShortSHAs = {};
+    const shaTimestamps = [];
+
+    commitFiles.forEach(file => {
+      const match = file.match(/COMMIT_SHAs\/(.+?)__(.{12})\.txt$/);
+      if (match) {
+        const service = match[1]; // Extract module name (e.g., api, ui, new-service)
+        const shortSha = match[2]; // Extract short SHA (12 chars)
+
+        // Retrieve file metadata to get creation timestamp
+        shaTimestamps.push({ service, shortSha, file });
+      } else {
+        console.log(`Skipping file (no match): ${file}`);
+      }
+    });
+
+    // Get latest SHA per service based on file timestamp
+    for (const { service, shortSha, file } of shaTimestamps) {
+      const fileObj = storage.bucket(BUCKET_NAME).file(file);
+      const [metadata] = await fileObj.getMetadata();
+      const timestamp = new Date(metadata.updated); // Use updated timestamp
+
+      if (!latestShortSHAs[service] || timestamp > latestShortSHAs[service].timestamp) {
+        latestShortSHAs[service] = { sha: shortSha, timestamp };
+      }
+    }
+
+    // Keep only the latest SHA per service
+    const latestSHAs = Object.fromEntries(
+      Object.entries(latestShortSHAs).map(([service, { sha }]) => [service, sha])
+    );
+
+    console.log("Latest Short SHAs:", latestSHAs);
+
+    // -------------------------------------------
+
+    // Fetch vulnerabilities
+    console.log("Fetching vulnerability files...");
+    const vulnerabilityFiles = await listFiles(storage, BUCKET_NAME, "vulnerabilities");
+
+    if (vulnerabilityFiles.length === 0) {
       return res.status(404).json({ error: "No vulnerabilities found." });
     }
 
     const vulnerabilityData = await Promise.all(
-      fileNames.map(async (fileName) => {
+      vulnerabilityFiles.map(async (fileName) => {
+        // Extract SHA from the filename
+        const match = fileName.match(
+          /^vulnerabilities\/([^_]+)__(.+?)__(.+?)__(.+?)@sha256:([a-f0-9]{12})\.json$/
+        );
+        if (!match) {
+          console.log(`Skipping unmatched file (incorrect format): ${fileName}`);
+          return null;
+        }
+
+        const [, vulnerabilityId, packageName, version, imageName, commitSha] = match;
+
+        // console.log(`Checking vulnerability file: ${fileName}`);
+        // console.log(`Extracted SHA: ${commitSha}`);
+
+        // Determine if this vulnerability is for the latest SHA
+        const relevantModule = Object.keys(latestSHAs).find(service => imageName.includes(service));
+
+        if (!relevantModule || commitSha !== latestSHAs[relevantModule]) {
+          // console.log(`Skipping ${fileName}: SHA mismatch (Expected: ${latestSHAs[relevantModule] || "N/A"} - Found: ${commitSha})`);
+          return null;
+        }
+
         const file = storage.bucket(BUCKET_NAME).file(fileName);
         const [metadata] = await file.getMetadata();
         const updatedDate = new Date(metadata.updated).toLocaleString();
         const [content] = await file.download();
         const jsonData = JSON.parse(content.toString());
 
-        console.log("File Data:", {
-          fileName,
-          fixAvailable: jsonData.vulnerability?.fixAvailable,
-        });
+        console.log(`Processing File (Matched): ${latestSHAs[relevantModule]} -  ${fileName}`);
 
-        const match = fileName.match(
-          /^vulnerabilities\/([^_]+)__(.+?)__(.+?)__(.+?)@sha256:([a-f0-9]+)\.json$/
-        );
-        if (!match) {
-          console.log(`Skipping unmatched file: ${fileName}`);
-          return null;
-        }
-
-        const [, vulnerabilityId, packageName, version, imageName, commitSha] = match;
         const effectiveSeverity = jsonData.vulnerability?.effectiveSeverity || "Unknown";
         const fixAvailable = jsonData.vulnerability?.fixAvailable || false;
 
-        // Generate a valid signed URL
+        // Generate a signed URL for the file
         const [signedUrl] = await file.getSignedUrl({
           version: "v4",
           action: "read",
@@ -115,50 +171,23 @@ app.get("/vulnerabilities", async (req, res) => {
           date: updatedDate,
           severity: effectiveSeverity,
           fixAvailable,
-          signedUrl, // Correct signed URL
+          signedUrl,
         };
       })
     );
 
-    const groupedData = Object.values(
-      vulnerabilityData.reduce((acc, entry) => {
-        if (!entry) return acc;
+    // Filter out null results
+    const filteredVulnerabilities = vulnerabilityData.filter(entry => entry !== null);
 
-        const key = `${entry.vulnerabilityId}__${entry.packageName}__${entry.version}__${entry.imageName}`;
-        if (!acc[key]) {
-          acc[key] = {
-            vulnerabilityId: entry.vulnerabilityId,
-            packageName: entry.packageName,
-            version: entry.version,
-            imageName: entry.imageName,
-            severity: entry.severity,
-            fixAvailable: entry.fixAvailable,
-            entries: [],
-          };
-        }
+    console.log(`Filtered Vulnerabilities: ${filteredVulnerabilities.length} entries found`);
 
-        acc[key].entries.push({
-          commitSha: entry.commitSha,
-          date: entry.date,
-          severity: entry.severity,
-          signedUrl: entry.signedUrl,
-          fixAvailable: entry.fixAvailable,
-        });
-
-        return acc;
-      }, {})
-    );
-
-    groupedData.forEach((group) => {
-      group.entries.sort((a, b) => new Date(b.date) - new Date(a.date));
-    });
-
-    res.json(groupedData);
+    res.json(filteredVulnerabilities);
   } catch (error) {
     console.error("Error fetching vulnerabilities:", error.message);
     res.status(500).send("Error fetching vulnerabilities: " + error.message);
   }
 });
+
 
 
 
@@ -263,6 +292,38 @@ app.get("/SBOM", async (req, res) => {
   }
 });
 
+
+
+app.get("/controls", async (req, res) => {
+  try {
+    console.log("Fetching control results from bucket...");
+
+    // Define the file path in GCS
+    const filePath = "policy-reports/final-control-results.json"; 
+    const file = storage.bucket(BUCKET_NAME).file(filePath);
+
+    // Check if the file exists
+    const [exists] = await file.exists();
+    if (!exists) {
+      console.error("Control results file not found.");
+      return res.status(404).json({ error: "Control results file not found." });
+    }
+
+    // Download the file from GCS
+    const [content] = await file.download();
+    const jsonData = JSON.parse(content.toString());
+
+    console.log("Control results fetched successfully.");
+    res.json(jsonData);
+  } catch (error) {
+    console.error("Error fetching control results:", error.message);
+    res.status(500).json({ error: "Error fetching control results" });
+  }
+});
+
+
+
+
 app.get("/test-coverage", async (req, res) => {
   try {
     console.log("Fetching files from bucket...");
@@ -326,6 +387,8 @@ app.get("/test-coverage", async (req, res) => {
       .send("Error fetching test coverage files: " + error.message);
   }
 });
+
+
 
 app.listen(port, "0.0.0.0", () => {
   // console.log(`Server running on http://localhost:${port}`);
