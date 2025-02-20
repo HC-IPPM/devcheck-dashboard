@@ -2,7 +2,7 @@
 .landing-page-container {
     flex-grow: 1;
     text-align: left;
-    /* padding: 30px 0; */
+    padding: 30px 0;
   }
   
   /* Button styles (for expand/collapse) */
@@ -14,7 +14,7 @@
     border: none;
     cursor: pointer;
     text-align: left;
-    padding: 4px 0; /* Less vertical space */
+    /* padding: 4px 0; Less vertical space */
   }
   
   /* Chevron icon (▶ / ▼) */
