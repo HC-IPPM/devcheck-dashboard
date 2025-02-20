@@ -24,7 +24,7 @@ export default function TestCoverageSummary() {
 
     // Convert `difference` to a number and determine pass/fail
     const differenceNum = Number(differenceValue);
-    const status = differenceNum <= -10 ? "❌ Fail" : "✅ Pass";
+    const status = differenceNum <= -10 ? `❌ ${t("pages.landingPage.fail")}` : `✅ ${t("pages.landingPage.pass")}`;
 
     return {
       ...file,

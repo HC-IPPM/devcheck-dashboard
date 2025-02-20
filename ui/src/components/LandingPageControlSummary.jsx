@@ -18,7 +18,7 @@ export default function ControlSummary() {
       .split(",") // Split multiple controls
       .map((singleControl) => ({
         control: singleControl.trim(), // Ensure no extra spaces
-        status: controlItem.results.some(result => result.result === "fail") ? "❌ Fail" : "✅ Pass",
+        status: controlItem.results.some(result => result.result === "fail") ? `❌ ${t("pages.landingPage.fail")}` : `✅ ${t("pages.landingPage.pass")}`,
       }));
   });
 
