@@ -12,9 +12,6 @@
 	"menu": {
 		"title": "Safe Inputs cATO Dashboard",
 		"home": "Home",
-		"bulkFile": "Bulk Files",
-		"addressBulkFile": "Bulk Address Geocoding Input",
-		"reverseBulkFile": "Reverse Geolocation Bulk Input",
 		"developers": "Developers",
 		"SBOM": "SBOM",
 		"testCoverage": "Test Coverage",
@@ -23,7 +20,8 @@
 		"vulnerabilities": "Vulnerablitites",
 		"contactUs": "Contact Us",
 		"test-coverage": "Test Coverage",
-		"skipNav": "Skip to main content"
+		"skipNav": "Skip to main content",
+		"controls": "Control Compliance"
 	},
 	"pages": {
 		"contactUs": {
@@ -90,10 +88,13 @@
 				"title_issues": "Accessibility Issues Identified During Scan",
 				"violation_ids": "Violation IDs",
 				"incomplete_ids": "Incomplete IDs",
+				"non_serious_violation_ids": "All other violation IDs",
 				"url_patterns": "URL Patterns",
 				"endpoints": "Endpoints",
-				"all_violation_ids": "All Violation IDs", 
-				"serious_impact_violation_ids": "Serious Impact Violation IDs"
+				"all_violation_ids": "All violation IDs", 
+				"serious_impact_violation_ids": "Serious impact violation IDs",
+				"status": "Status",
+				"status_none": "None"
 			}
 		},
 		"test-coverage": {
@@ -105,17 +106,32 @@
 				"module": "Module",
 				"branch": "Branch",
 				"test_coverage": "Test Coverage (%)",
+				"test_coverage_difference": "Difference from previous commit (%)",
 				"view": "View",
 				"date": "Date", 
-				"commit_sha": "Commit SHA"
+				"commit_sha": "Commit SHA",
+				"status": "Status"
 			},
 			"button":{
 				"view_results": "View Results"
 			}
 		},
+		"control-compliance": {
+			"title": "Control Compliance",
+			"para":"30 day object retention. Using Kyverno (with only a couple of controls to start).",
+			"table":{
+				"controls": "Control(s)",
+				"control": "Control",
+				"policy": "Policy",
+				"resource": "Resource",
+				"rule": "Rule",
+				"result": "Result",
+				"status": "Status"
+			}
+		},
 		"vulnerabilities": {
 			"title": "Vunerabilities",
-			"para": "<0>Renovate</0> continuously scans the source code in GitHub, which will include any development dependencies, for vulnerabilities. Renovate will automatically create PRs with patches for these dependencies. The vulnerabilities represented here are the ones detected by the Artifact Registry. This is done automatically when a new image is pushed, as well as several times a day until the container image is one month old. The objects listed here also have a 30-day retention policy.",
+			"para": "<0>Renovate</0> continuously scans the source code in GitHub, which will include any development dependencies, for vulnerabilities. Renovate will automatically create PRs with patches for these dependencies. The vulnerabilities represented here are the ones detected by the Artifact Registry. This is done automatically when a new image is pushed, as well as several times a day until the container image is one month old. The objects listed here also have a 30-day retention policy. The SHA listed here refers to the Artifact Registry digest. The GitHub commit SHA can be retrieved from the image tag.",
 			"table":{
 				"title_overview": "Vulnerability Overview",
 				"title_sub": "All Commits",
@@ -128,7 +144,16 @@
 				"fix_available": "Fix Available",
 				"view": "View",
 				"date": "Date", 
-				"commit_sha": "Commit SHA"
+				"commit_sha": "Digest",
+				"status": "Status"
+			},
+			"severity": {
+				"critical": "Critical",
+				"high": "High",
+				"medium": "Medium",
+				"low": "Low",
+				"severity_unspecified": "Unspecified",
+				"unknown": "Unknown"
 			},
 			"button":{
 				"view_commits": "View Commits",
@@ -142,13 +167,22 @@
 			"category": "Category"
 		},
 		"landingPage": {
-			"title": "Welcome to the cATO Safe Inputs Dashboard",
+			"title": "Welcome to Safe Inputs Dashboard",
 			"underHeader": "Section 1",
-			"landingPagePara": "This is an inital effort at dashboarding some of the outputs from the DevSecOps process. We only have a handful of metrics at the moment, but working on iteratively expanding this. ",
-			"landingPagePara2": "More details such as GitHub configurations and uptime metrics can be found in Observatory. ",
-			"landingPagePara3": "Please let us know if you have any feedback.",
+			"landingPagePara": "This is an inital effort at dashboarding some DevSecOps outputs. We only have a handful of metrics at the moment, but iteratively working to expand this. More details such as GitHub configurations and uptime metrics can be found on the Observatory.",
+			"landingPagePara2": "Please let us know if you have any feedback.",
 			"placeholder1": "",
-			"placeholder2": "Clear the Results"
+			"placeholder2": "Clear the Results",
+			"vulnerabilityTitle": "Vulnerabilities",
+			"vulnerabilityPara": "These are vulnerabilities currently present in the Artifact Registry for the most recent commits. The Artifact Registry will scan images younger than 30 days, and there is a 30-day storage bucket retention policy for the results. This will only display information on non-stale images. Fails if contains Critical or High vulnerabilities.",
+			"accessibilityTitle": "Accessibility Issues",
+			"accessibilityPara": "Summary is for the most recent commit per branch. Designated as fail if any violations occur.",
+			"testCoverageTitle": "Test Coverage Trends",
+			"testCoveragePara": "This summary is for the Main branch only - for all branches, see the Code Coverage section. There is a 30-day object retention policy on the storage bucket, so results will only include recently updated modules. Designated as fail if test coverage drops greater or equal to 10%.",
+			"controlComplianceTitle": "Control Compliance",
+			"controlCompliancePara": "Automated with Kyverno. Retention policy 30 days.",
+			"pass": "Pass",
+			"fail": "Fail"
 		}
 	},
 	"loading": "Loading",

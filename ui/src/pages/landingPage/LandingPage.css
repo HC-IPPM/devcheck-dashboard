@@ -1,0 +1,59 @@
+/* Main container styles */
+.landing-page-container {
+    flex-grow: 1;
+    text-align: left;
+    /* padding: 30px 0; */
+  }
+  
+  /* Button styles (for expand/collapse) */
+  .landing-page-button {
+    display: flex;
+    /* align-items: center; */
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 4px 0; /* Less vertical space */
+  }
+  
+  /* Chevron icon (▶ / ▼) */
+  .landing-page-chevron {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(12px); /* Moves icon slightly lower */
+    margin-right: 18px;
+  }
+  
+  /* Heading & status icon wrapper */
+  .landing-page-header-wrapper {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  /* Section heading */
+  .landing-page-heading {
+    margin: 0;
+    padding: 0;
+    /* display: inline-flex; */
+    /* align-items: center; */
+  }
+  
+  /* Status icon  */
+  .landing-page-status {
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 16px;
+    transform: translateY(12px);
+  }
+  
+  /* Expandable content */
+  .landing-page-content {
+    overflow: hidden;
+    /* margin-bottom: 2px; */
+  }
+  
