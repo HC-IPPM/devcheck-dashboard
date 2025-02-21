@@ -28,7 +28,26 @@ export default function LandingPage() {
     { key: "controlCompliance", component: <ControlSummary /> },
   ], []);
 
+  // useEffect(() => {
+  //   const updatedStatuses = { ...sectionStatuses };
+  
+  //   Object.keys(sectionStatuses).forEach((key) => {
+  //     const table = tableRefs.current[key];
+  //     if (table) {
+  //       const hasFail = table.innerHTML.includes("❌");
+  //       const hasPass = table.innerHTML.includes("✅");
+  
+  //       if (updatedStatuses[key] === "") {
+  //         updatedStatuses[key] = hasFail ? "❌" : hasPass ? "✅" : "";
+  //       }
+  //     }
+  //   });
+  
+  //   setSectionStatuses(updatedStatuses);
+  // }, [sectionStatuses]);
+
   useEffect(() => {
+    let needsUpdate = false;
     const updatedStatuses = { ...sectionStatuses };
   
     Object.keys(sectionStatuses).forEach((key) => {
@@ -36,15 +55,20 @@ export default function LandingPage() {
       if (table) {
         const hasFail = table.innerHTML.includes("❌");
         const hasPass = table.innerHTML.includes("✅");
-  
-        if (updatedStatuses[key] === "") {
-          updatedStatuses[key] = hasFail ? "❌" : hasPass ? "✅" : "";
+        
+        // ✅ Only update if value changes to avoid unnecessary re-renders
+        const newStatus = hasFail ? "❌" : hasPass ? "✅" : "";
+        if (updatedStatuses[key] !== newStatus) {
+          updatedStatuses[key] = newStatus;
+          needsUpdate = true;
         }
       }
     });
   
-    setSectionStatuses(updatedStatuses);
-  }, [sectionStatuses]);
+    if (needsUpdate) {
+      setSectionStatuses(updatedStatuses);
+    }
+  }, []);
   
   const toggleSection = (key) => {
     setExpandedSections((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -129,8 +153,8 @@ export default function LandingPage() {
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="landing-page-content"
             >
-              {console.log("Translation key:", `pages.landingPage.${key}Para`)}
-              {console.log("Current translation:", t(`pages.landingPage.${key}Para`))}
+              {/* {console.log("Translation key:", `pages.landingPage.${key}Para`)} */}
+              {/* {console.log("Current translation:", t(`pages.landingPage.${key}Para`))} */}
               <GcdsText tag="p" characterLimit="false">{t(`pages.landingPage.${key}Para`)}</GcdsText>
               <div ref={(el) => (tableRefs.current[key] = el)}>{component}</div>
             </motion.div>
