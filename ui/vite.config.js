@@ -35,6 +35,10 @@ export default defineConfig(({ mode }) => {
       // port: isCloudShell ? 8080 : parseInt(env.VITE_PORT) || 5173,
       strictPort: true,
     },
+    build: {
+      outDir: 'dist',
+      assetsInclude: ['public/locales/**'], 
+    },
   };
 });
 
