@@ -8,35 +8,75 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-const API_URL = process.env.API_URL || "https://localhost:3000";
-console.log(API_URL)
-const UI_URL = process.env.UI_URL || "https://localhost:5173";
-console.log(UI_URL)
+
+const API_URL = process.env.API_URL || "http://localhost:3000";
+const UI_URL = process.env.UI_URL || "http://localhost:5173";
+const CLOUDRUN_UI_URL = process.env.CLOUDRUN_UI_URL || "https://ui-744920990938.northamerica-northeast1.run.app";
+const CLOUDRUN_API_URL = process.env.CLOUDRUN_API_URL || "https://api-744920990938.northamerica-northeast1.run.app";
+const KEY_PATH = process.env.KEY_PATH || "./sa-key.json";
 const BUCKET_NAME =
   process.env.BUCKET_NAME || "safe-inputs-devsecops-outputs-for-dashboard";
-const KEY_PATH = process.env.KEY_PATH || "./sa-key.json";
 
+// **Ensure Cloud Shell URLs are dynamically set**
+// const CLOUD_SHELL_UI = `https://5173-cs-${process.env.GOOGLE_CLOUD_PROJECT}-default.cs-${process.env.GOOGLE_CLOUD_REGION}.cloudshell.dev`;
+const CLOUD_SHELL_UI = `https://8080-cs-${process.env.GOOGLE_CLOUD_PROJECT}-default.cs-${process.env.GOOGLE_CLOUD_REGION}.cloudshell.dev`;
+const CLOUD_SHELL_API = `https://3001-cs-${process.env.GOOGLE_CLOUD_PROJECT}-default.cs-${process.env.GOOGLE_CLOUD_REGION}.cloudshell.dev`;
 
-const allowedOrigins = [
-  API_URL,
-  UI_URL,
-];
+// **Define allowed origins dynamically**
+const allowedOrigins = new Set([
+  "http://localhost:5173",
+  "http://localhost:3000",
+  CLOUD_SHELL_UI,
+  CLOUD_SHELL_API,
+  CLOUDRUN_UI_URL,
+  CLOUDRUN_API_URL,
+]);
 
+// **Debugging: Log incoming requests and their origin**
+app.use((req, res, next) => {
+  console.log("Incoming request from:", req.headers.origin);
+  next();
+});
+
+// **CORS Middleware**
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin || allowedOrigins.has(origin) || origin.includes("cloudshell.dev")) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        console.log(`Blocked CORS request from: ${origin}`);
+        callback(new Error(`CORS blocked for origin: ${origin}`));
       }
     },
     credentials: true,
-  }),
+    optionsSuccessStatus: 200,
+  })
 );
 
-// app.use(cors({ origin: "*" }));
+// **Handle OPTIONS Preflight Requests Correctly**
+app.options("*", (req, res) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.has(origin) || origin?.includes("cloudshell.dev")) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+  }
+  res.sendStatus(200);
+});
 
+// **Manually Set CORS Headers for All Responses**
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.has(origin) || origin?.includes("cloudshell.dev")) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+  }
+  next();
+});
 
 // Load the service account key file (this will be a gcp secret in the future!)
 const storage = new Storage({ keyFilename: KEY_PATH });
@@ -88,7 +128,7 @@ app.get("/vulnerabilities", async (req, res) => {
         // Retrieve file metadata to get creation timestamp
         shaTimestamps.push({ service, shortSha, file });
       } else {
-        console.log(`Skipping file (no match): ${file}`);
+        // console.log(`Skipping file (no match): ${file}`);
       }
     });
 
@@ -108,7 +148,7 @@ app.get("/vulnerabilities", async (req, res) => {
       Object.entries(latestShortSHAs).map(([service, { sha }]) => [service, sha])
     );
 
-    console.log("Latest Short SHAs:", latestSHAs);
+    // console.log("Latest Short SHAs:", latestSHAs);
 
     // -------------------------------------------
 
@@ -127,7 +167,7 @@ app.get("/vulnerabilities", async (req, res) => {
           /^vulnerabilities\/([^_]+)__(.+?)__(.+?)__(.+?)@sha256:([a-f0-9]{12})\.json$/
         );
         if (!match) {
-          console.log(`Skipping unmatched file (incorrect format): ${fileName}`);
+          // console.log(`Skipping unmatched file (incorrect format): ${fileName}`);
           return null;
         }
 
@@ -150,7 +190,7 @@ app.get("/vulnerabilities", async (req, res) => {
         const [content] = await file.download();
         const jsonData = JSON.parse(content.toString());
 
-        console.log(`Processing File (Matched): ${latestSHAs[relevantModule]} -  ${fileName}`);
+        // console.log(`Processing File (Matched): ${latestSHAs[relevantModule]} -  ${fileName}`);
 
         const effectiveSeverity = jsonData.vulnerability?.effectiveSeverity || "Unknown";
         const fixAvailable = jsonData.vulnerability?.fixAvailable || false;
@@ -179,7 +219,7 @@ app.get("/vulnerabilities", async (req, res) => {
     // Filter out null results
     const filteredVulnerabilities = vulnerabilityData.filter(entry => entry !== null);
 
-    console.log(`Filtered Vulnerabilities: ${filteredVulnerabilities.length} entries found`);
+    // console.log(`Filtered Vulnerabilities: ${filteredVulnerabilities.length} entries found`);
 
     res.json(filteredVulnerabilities);
   } catch (error) {
@@ -389,8 +429,14 @@ app.get("/test-coverage", async (req, res) => {
 });
 
 
+// // Test API Route
+// app.get("/", (req, res) => {
+//   res.send("CORS is working! API is running!");
+// });
 
+
+
+// Start the Server
 app.listen(port, "0.0.0.0", () => {
-  // console.log(`Server running on http://localhost:${port}`);
-  console.log(`Server running on ${API_URL}`);
+  console.log(`Server running on port ${port}`);
 });

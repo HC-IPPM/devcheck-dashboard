@@ -4,7 +4,13 @@ export default function useFetchData(endpoint) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const API_URL = import.meta.env.VITE_API_URL || "https://localhost:3000";
+
+  const API_URL =
+  window.location.hostname.includes("cloudshell")
+    ? "https://3001-cs-281831690367-default.cs-us-east1-yeah.cloudshell.dev" // Use Cloud Shell API if UI is in Cloud Shell
+    : window.location.hostname.includes("localhost")
+    ? "http://localhost:3001" // Use Local API if UI is in localhost
+    : "https://api-744920990938.northamerica-northeast1.run.app";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -12,7 +18,11 @@ export default function useFetchData(endpoint) {
       setError(null);
       try {
         const response = await fetch(`${API_URL}/${endpoint}`, { credentials: "include" });
-        if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+
+        if (!response.ok) {
+          const text = await response.text(); // Read raw response
+          throw new Error(`Error ${response.status}: ${text}`);
+        }
 
         const result = await response.json();
         setData(result);
@@ -29,3 +39,6 @@ export default function useFetchData(endpoint) {
 
   return { data, loading, error };
 }
+
+
+
