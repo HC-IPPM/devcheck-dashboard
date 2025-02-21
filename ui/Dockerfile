@@ -9,6 +9,10 @@ COPY i18n/locales /app/i18n/locales
 COPY .env .env
 COPY . .
 
+# Ensure locales are included in the final build
+RUN mkdir -p /app/dist/locales
+COPY public/locales /app/dist/locales
+
 # Set ownership of the /app directory to the 'node' user
 RUN chown -R node:node /app
 RUN npm ci
