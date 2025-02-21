@@ -128,7 +128,7 @@ app.get("/vulnerabilities", async (req, res) => {
         // Retrieve file metadata to get creation timestamp
         shaTimestamps.push({ service, shortSha, file });
       } else {
-        console.log(`Skipping file (no match): ${file}`);
+        // console.log(`Skipping file (no match): ${file}`);
       }
     });
 
@@ -148,7 +148,7 @@ app.get("/vulnerabilities", async (req, res) => {
       Object.entries(latestShortSHAs).map(([service, { sha }]) => [service, sha])
     );
 
-    console.log("Latest Short SHAs:", latestSHAs);
+    // console.log("Latest Short SHAs:", latestSHAs);
 
     // -------------------------------------------
 
@@ -167,7 +167,7 @@ app.get("/vulnerabilities", async (req, res) => {
           /^vulnerabilities\/([^_]+)__(.+?)__(.+?)__(.+?)@sha256:([a-f0-9]{12})\.json$/
         );
         if (!match) {
-          console.log(`Skipping unmatched file (incorrect format): ${fileName}`);
+          // console.log(`Skipping unmatched file (incorrect format): ${fileName}`);
           return null;
         }
 
@@ -190,7 +190,7 @@ app.get("/vulnerabilities", async (req, res) => {
         const [content] = await file.download();
         const jsonData = JSON.parse(content.toString());
 
-        console.log(`Processing File (Matched): ${latestSHAs[relevantModule]} -  ${fileName}`);
+        // console.log(`Processing File (Matched): ${latestSHAs[relevantModule]} -  ${fileName}`);
 
         const effectiveSeverity = jsonData.vulnerability?.effectiveSeverity || "Unknown";
         const fixAvailable = jsonData.vulnerability?.fixAvailable || false;
@@ -219,7 +219,7 @@ app.get("/vulnerabilities", async (req, res) => {
     // Filter out null results
     const filteredVulnerabilities = vulnerabilityData.filter(entry => entry !== null);
 
-    console.log(`Filtered Vulnerabilities: ${filteredVulnerabilities.length} entries found`);
+    // console.log(`Filtered Vulnerabilities: ${filteredVulnerabilities.length} entries found`);
 
     res.json(filteredVulnerabilities);
   } catch (error) {
@@ -429,14 +429,14 @@ app.get("/test-coverage", async (req, res) => {
 });
 
 
-// **Test API Route**
-app.get("/", (req, res) => {
-  res.send("CORS is working! API is running!");
-});
+// // Test API Route
+// app.get("/", (req, res) => {
+//   res.send("CORS is working! API is running!");
+// });
 
 
 
-// **Start the Server**
+// Start the Server
 app.listen(port, "0.0.0.0", () => {
-  console.log(`✅ Server running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
