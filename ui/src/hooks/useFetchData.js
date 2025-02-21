@@ -5,11 +5,19 @@ export default function useFetchData(endpoint) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const API_URL =
-  import.meta.env.VITE_API_URL ||
-  process.env.API_URL ||
-  (window.location.hostname.includes("cloudshell") ? "https://3001-cs-281831690367-default.cs-us-east1-yeah.cloudshell.dev" : "https://api-744920990938.northamerica-northeast1.run.app");
+  // const API_URL =
+  // import.meta.env.VITE_API_URL ||
+  // process.env.API_URL ||
+  // (window.location.hostname.includes("cloudshell") ? "https://3001-cs-281831690367-default.cs-us-east1-yeah.cloudshell.dev" : "https://api-744920990938.northamerica-northeast1.run.app");
 
+  const API_URL =
+  import.meta.env.VITE_API_URL || // Use .env variable if available 
+  process.env.API_URL || // Use backend environment variable if available
+  (window.location.hostname.includes("cloudshell")
+    ? "https://3001-cs-281831690367-default.cs-us-east1-yeah.cloudshell.dev" // Cloud Shell API URL
+    : window.location.hostname.includes("localhost")
+    ? "http://localhost:3001" 
+    : "https://api-744920990938.northamerica-northeast1.run.app"); // Cloud Run API URL
 
   useEffect(() => {
     const fetchData = async () => {
