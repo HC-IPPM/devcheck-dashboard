@@ -4,6 +4,7 @@ FROM node:22-alpine3.21@sha256:f2dc6eea95f787e25f173ba9904c9d0647ab2506178c7b5b7
 
 WORKDIR /app
 COPY public/locales /app/public/locales
+COPY i18n/locales /app/i18n/locales 
 
 COPY .env .env
 COPY . .
@@ -20,6 +21,6 @@ EXPOSE 8080
 
 USER node
 
-# CMD ["npm", "--no-update-notifier", "run", "dev"]
-CMD ["npm", "run", "preview", "--", "--port", "8080"]
+CMD ["npm", "--no-update-notifier", "run", "dev", "--port", "8080"]
+# CMD ["npm", "run", "preview", "--", "--port", "8080"]
 # CMD ["npm", "run", "preview", "--", "--port", "8080", "--host"]

@@ -9,7 +9,8 @@ COPY . .
 
 RUN npm ci
 
-EXPOSE 3001
+# EXPOSE 3001
+EXPOSE 8080
 
 USER node
 

@@ -15,11 +15,14 @@ console.log(UI_URL)
 const BUCKET_NAME =
   process.env.BUCKET_NAME || "safe-inputs-devsecops-outputs-for-dashboard";
 const KEY_PATH = process.env.KEY_PATH || "./sa-key.json";
+const CLOUDRUN_UI_URL = process.env.CLOUDRUN_UI_URL || "https://ui-744920990938.northamerica-northeast1.run.app; "
+// const CLOUDRUN_API_URL = process.env.CLOUDRUN_API_URL || https://api-744920990938.northamerica-northeast1.run.app; 
 
 
 const allowedOrigins = [
   API_URL,
   UI_URL,
+  CLOUDRUN_UI_URL
 ];
 
 app.use(
@@ -393,4 +396,5 @@ app.get("/test-coverage", async (req, res) => {
 app.listen(port, "0.0.0.0", () => {
   // console.log(`Server running on http://localhost:${port}`);
   console.log(`Server running on ${API_URL}`);
+  console.log(`Server is running...`)
 });
