@@ -21,6 +21,6 @@ EXPOSE 8080
 
 USER node
 
-CMD ["npm", "--no-update-notifier", "run", "dev", "--port", "8080"]
+# CMD ["npm", "--no-update-notifier", "run", "dev", "--port", "8080"]
 # CMD ["npm", "run", "preview", "--", "--port", "8080"]
-# CMD ["npm", "run", "preview", "--", "--port", "8080", "--host"]
+CMD ["npm", "run", "preview", "--", "--port", "8080", "--host"]
