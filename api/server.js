@@ -108,7 +108,7 @@ app.get("/listFiles", async (req, res) => {
 app.get("/vulnerabilities", async (req, res) => {
   try {
     console.log("Fetching commit SHAs from bucket...");
-    const commitFiles = await listFiles(storage, BUCKET_NAME, "COMMIT_SHAs/");
+    const commitFiles = await listFiles(storage, BUCKET_NAME, "artifact-registry-image-digests/");
 
     if (commitFiles.length === 0) {
       console.log("No commit SHAs found.");
@@ -118,9 +118,9 @@ app.get("/vulnerabilities", async (req, res) => {
     // Extract latest short SHAs dynamically
     const latestShortSHAs = {};
     const shaTimestamps = [];
-
+  
     commitFiles.forEach(file => {
-      const match = file.match(/COMMIT_SHAs\/(.+?)__(.{12})\.txt$/);
+      const match = file.match(/artifact-registry-image-digests\/(.+?)__(.{12})\.txt$/);
       if (match) {
         const service = match[1]; // Extract module name (e.g., api, ui, new-service)
         const shortSha = match[2]; // Extract short SHA (12 chars)
