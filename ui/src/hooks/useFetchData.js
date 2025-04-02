@@ -10,7 +10,11 @@ export default function useFetchData(endpoint) {
     ? "https://3001-cs-281831690367-default.cs-us-east1-yeah.cloudshell.dev" // Use Cloud Shell API if UI is in Cloud Shell
     : window.location.hostname.includes("localhost")
     ? "http://localhost:3001" // Use Local API if UI is in localhost
+    : window.location.hostname.includes("workstation") 
+    ? "https://3001-my-workstation.cluster-5sn52swtxneecwkdgwfk2ddxuo.cloudworkstations.dev" // workstation
     : "https://api-744920990938.northamerica-northeast1.run.app";
+
+
 
   useEffect(() => {
     const fetchData = async () => {
