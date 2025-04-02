@@ -13,9 +13,11 @@ const API_URL = process.env.API_URL || "http://localhost:3000";
 const UI_URL = process.env.UI_URL || "http://localhost:5173";
 const CLOUDRUN_UI_URL = process.env.CLOUDRUN_UI_URL || "https://ui-744920990938.northamerica-northeast1.run.app";
 const CLOUDRUN_API_URL = process.env.CLOUDRUN_API_URL || "https://api-744920990938.northamerica-northeast1.run.app";
+const WORKSTATION_UI_URL = process.env.WORKSTATION_UI_URLL || "";
+const WORKSTATION_API_URL = process.env.WORKSTATION_UI_URL || "";
 const KEY_PATH = process.env.KEY_PATH || "./sa-key.json";
 const BUCKET_NAME =
-  process.env.BUCKET_NAME || "safe-inputs-devsecops-outputs-for-dashboard";
+  process.env.BUCKET_NAME || "pelias-devsecops-outputs-for-dashboard";
 
 // **Ensure Cloud Shell URLs are dynamically set**
 // const CLOUD_SHELL_UI = `https://5173-cs-${process.env.GOOGLE_CLOUD_PROJECT}-default.cs-${process.env.GOOGLE_CLOUD_REGION}.cloudshell.dev`;
@@ -26,11 +28,17 @@ const CLOUD_SHELL_API = `https://3001-cs-${process.env.GOOGLE_CLOUD_PROJECT}-def
 const allowedOrigins = new Set([
   "http://localhost:5173",
   "http://localhost:3000",
+  "http://localhost:3000",
+  "https://8080-my-workstation.cluster-5sn52swtxneecwkdgwfk2ddxuo.cloudworkstations.dev",
+  "https://3001-cs-281831690367-default.cs-us-east1-yeah.cloudshell.dev",
   CLOUD_SHELL_UI,
   CLOUD_SHELL_API,
   CLOUDRUN_UI_URL,
   CLOUDRUN_API_URL,
+  WORKSTATION_API_URL,
+  WORKSTATION_UI_URL
 ]);
+
 
 // **Debugging: Log incoming requests and their origin**
 app.use((req, res, next) => {
