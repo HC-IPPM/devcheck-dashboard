@@ -10,7 +10,7 @@
 		"contactUs": "Contact Us"
 	},
 	"menu": {
-		"title": "Safe Inputs cATO Dashboard",
+		"title": "DevCheck Dashboard",
 		"home": "Home",
 		"developers": "Developers",
 		"SBOM": "SBOM",
@@ -167,7 +167,7 @@
 			"category": "Category"
 		},
 		"landingPage": {
-			"title": "Welcome to Safe Inputs Dashboard",
+			"title": "Welcome to Pelias Canada DevCheck Dashboard",
 			"underHeader": "Section 1",
 			"landingPagePara": "This is an inital effort at dashboarding some DevSecOps outputs. We only have a handful of metrics at the moment, but iteratively working to expand this. More details such as GitHub configurations and uptime metrics can be found on the Observatory.",
 			"landingPagePara2": "Please let us know if you have any feedback.",

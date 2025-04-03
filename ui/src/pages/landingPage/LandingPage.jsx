@@ -7,7 +7,7 @@ import VulnerabilitySummary from "../../components/LandingPageVulnerabilitySumma
 import TestCoverageSummary from "../../components/LandingPageTestCoverageSummary";
 import AccessibilityScanSummary from "../../components/LandingPageAccessibilitySummary";
 import ControlSummary from "../../components/LandingPageControlSummary";
-import "./LandingPage.css"; // ✅ Ensure CSS is imported
+import "./LandingPage.css";
 
 export default function LandingPage() {
   const { t } = useTranslation();
@@ -21,7 +21,7 @@ export default function LandingPage() {
 
   const tableRefs = useRef({});
 
-  // ✅ Define sections with references
+  // Define sections with references
   const sections = useMemo(() => [
     { key: "vulnerability", component: <VulnerabilitySummary /> },
     { key: "accessibility", component: <AccessibilityScanSummary /> },
@@ -53,17 +53,17 @@ export default function LandingPage() {
       }
     };
 
-    // ✅ Run once when the component mounts & when navigating back
+    // Run once when the component mounts & when navigating back
     updateStatuses();
 
-    // ✅ Observe changes to table contents dynamically
+    // Observe changes to table contents dynamically
     const observer = new MutationObserver(updateStatuses);
     Object.values(tableRefs.current).forEach((table) => {
       if (table) observer.observe(table, { childList: true, subtree: true });
     });
 
-    return () => observer.disconnect(); // ✅ Cleanup observer on unmount
-  }, [sections]); // ✅ Re-run when `sections` change (e.g., when navigating back)
+    return () => observer.disconnect(); // Cleanup observer on unmount
+  }, [sections]); // Re-run when `sections` change (e.g., when navigating back)
 
   const toggleSection = (key) => {
     setExpandedSections((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -71,8 +71,8 @@ export default function LandingPage() {
 
   return (
     <>
-      {/* ✅ Welcome Section */}
-      <div>
+      {/* Welcome Section */}
+      {/* <div>
         <div
           style={{
             display: "flex",
@@ -90,9 +90,9 @@ export default function LandingPage() {
         >
           <h1>{t("pages.landingPage.title")}</h1>
         </div>
-      </div>
+      </div> */}
 
-      {/* ✅ Main Content */}
+      {/* Main Content */}
       <GcdsContainer
         size="xl"
         centered
@@ -102,42 +102,43 @@ export default function LandingPage() {
         aria-label={t("pages.landingPage.title")}
       >
         <GcdsText tag="p" characterLimit="false">
-          {t("pages.landingPage.landingPagePara").split("Observatory")[0]}
-          <a href="https://observatory.alpha.phac.gc.ca/safeinputs-alpha-phac-aspc-gc-ca" target="_blank" rel="noopener noreferrer">
+          {t("pages.landingPage.landingPagePara")}
+          {/* {t("pages.landingPage.landingPagePara").split("Observatory")[0]} */}
+          {/* <a href="https://observatory.alpha.phac.gc.ca/safeinputs-alpha-phac-aspc-gc-ca" target="_blank" rel="noopener noreferrer">
             Observatory
-          </a>
+          </a> */}
           {t("pages.landingPage.landingPagePara2").split("Observatory")[1]}
         </GcdsText>
         <GcdsText tag="p" characterLimit="false">{t("pages.landingPage.landingPagePara2")}</GcdsText>
 
-        {/* ✅ Sections (Dropdowns) */}
+        {/* Sections (Dropdowns) */}
         {sections.map(({ key, component }) => (
           <div key={key}>
-            {/* ✅ Expandable Heading */}
+            {/* Expandable Heading */}
             <button
               onClick={() => toggleSection(key)}
               className="landing-page-button"
               aria-expanded={expandedSections[key]}
             >
-              {/* ✅ Chevron Icon */}
+              {/* Chevron Icon */}
               <i
                 className={`fa ${expandedSections[key] ? "fa-chevron-down" : "fa-chevron-right"} landing-page-chevron`}
               ></i>
 
-              {/* ✅ Title & Status Icon Wrapper */}
+              {/* Title & Status Icon Wrapper */}
               <div className="landing-page-header-wrapper">
                 <GcdsHeading tag="h2" characterLimit="false" className="landing-page-heading">
                   {t(`pages.landingPage.${key}Title`)}
                 </GcdsHeading>
 
-                {/* ✅ Status Icon (✅ ❌) */}
+                {/* Status Icon (✅ ❌) */}
                 <span className="landing-page-status">
                   {sectionStatuses[key]}
                 </span>
               </div>
             </button>
 
-            {/* ✅ Expandable Content */}
+            {/* Expandable Content */}
             <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: expandedSections[key] ? "auto" : 0, opacity: expandedSections[key] ? 1 : 0 }}

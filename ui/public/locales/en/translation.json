@@ -10,7 +10,7 @@
 		"contactUs": "Contact Us"
 	},
 	"menu": {
-		"title": "Safe Inputs cATO Dashboard",
+		"title": "DevCheck Dashboard",
 		"home": "Home",
 		"developers": "Developers",
 		"SBOM": "SBOM",
@@ -59,11 +59,11 @@
 			"button":{
 				"view_sbom": "View SBOM"
 			},
-			"para": "30 day object retention policy. SBOM collected for whole application on any service's push to main branch."
+			"para": "30 day object lifecycle policy. SBOM collected for whole application on any service's push to main branch."
 		},
 		"accessibility": {
 			"title": "Accessibility Compliance Scans",
-			"para": "30-day object retention policy. Accessibility scans are performed when there is a commit to the UI codebase on any branch.",
+			"para": "30-day object lifecycle policy. Accessibility scans are performed when there is a commit to the UI codebase on any branch.",
 			"table":{
 				"title_overview": "Most Recent Commit per Branch",
 				"title_sub": "All Commits",
@@ -99,7 +99,7 @@
 		},
 		"test-coverage": {
 			"title": "Test Coverage",
-			"para": "30-day object retention policy. Coverage reported here is total statements - click 'View Results' to see more.",
+			"para": "30-day object lifecycle policy. Coverage reported here is total statements - click 'View Results' to see more.",
 			"table":{
 				"title_overview": "Most Recent Commit per Module/Branch",
 				"title_sub": "All Commits",
@@ -118,7 +118,7 @@
 		},
 		"control-compliance": {
 			"title": "Control Compliance",
-			"para":"30 day object retention. Using Kyverno (with only a couple of controls to start).",
+			"para":"30 day object lifecycle. Using Kyverno (with only a couple of controls to start).",
 			"table":{
 				"controls": "Control(s)",
 				"control": "Control",
@@ -131,7 +131,7 @@
 		},
 		"vulnerabilities": {
 			"title": "Vunerabilities",
-			"para": "<0>Renovate</0> continuously scans the source code in GitHub, which will include any development dependencies, for vulnerabilities. Renovate will automatically create PRs with patches for these dependencies. The vulnerabilities represented here are the ones detected by the Artifact Registry. This is done automatically when a new image is pushed, as well as several times a day until the container image is one month old. The objects listed here also have a 30-day retention policy. The SHA listed here refers to the Artifact Registry digest. The GitHub commit SHA can be retrieved from the image tag.",
+			"para": "<0>Dependabot</0> continuously scans the source code in GitHub, which will include any development dependencies, for vulnerabilities. Dependabot will automatically create PRs with patches for these dependencies. The vulnerabilities represented here are the ones detected by the Artifact Registry. This is done automatically when a new image is pushed, as well as several times a day until the container image is one month old. The objects listed here also have a 30-day lifecycle policy. The SHA listed here refers to the Artifact Registry digest. The GitHub commit SHA can be retrieved from the image tag.",
 			"table":{
 				"title_overview": "Vulnerability Overview",
 				"title_sub": "All Commits",
@@ -167,20 +167,20 @@
 			"category": "Category"
 		},
 		"landingPage": {
-			"title": "Welcome to Safe Inputs Dashboard",
+			"title": "Welcome to Pelias Canada DevCheck Dashboard",
 			"underHeader": "Section 1",
-			"landingPagePara": "This is an inital effort at dashboarding some DevSecOps outputs. We only have a handful of metrics at the moment, but iteratively working to expand this. More details such as GitHub configurations and uptime metrics can be found on the Observatory.",
+			"landingPagePara": "This is an inital effort at dashboarding some DevSecOps outputs. We only have a handful of metrics at the moment, but iteratively working to expand this. Observatory had more information around uptime metrics and GitHub configurations. These will be included in the next iteration.",
 			"landingPagePara2": "Please let us know if you have any feedback.",
 			"placeholder1": "",
 			"placeholder2": "Clear the Results",
 			"vulnerabilityTitle": "Vulnerabilities",
-			"vulnerabilityPara": "These are vulnerabilities currently present in the Artifact Registry for the most recent commits. The Artifact Registry will scan images younger than 30 days, and there is a 30-day storage bucket retention policy for the results. This will only display information on non-stale images. Fails if contains Critical or High vulnerabilities.",
+			"vulnerabilityPara": "These are vulnerabilities currently present in the Artifact Registry for the most recent commits. The Artifact Registry will scan images younger than 30 days, and there is a 30-day storage bucket lifecycle policy for the results. This will only display information on non-stale images. Fails if contains Critical or High vulnerabilities.",
 			"accessibilityTitle": "Accessibility Issues",
 			"accessibilityPara": "Summary is for the most recent commit per branch. Designated as fail if any violations occur.",
 			"testCoverageTitle": "Test Coverage Trends",
-			"testCoveragePara": "This summary is for the Main branch only - for all branches, see the Code Coverage section. There is a 30-day object retention policy on the storage bucket, so results will only include recently updated modules. Designated as fail if test coverage drops greater or equal to 10%.",
+			"testCoveragePara": "This summary is for the Main branch only - for all branches, see the Code Coverage section. There is a 30-day object lifecycle policy on the storage bucket, so results will only include recently updated modules. Designated as fail if test coverage drops greater or equal to 10%.",
 			"controlComplianceTitle": "Control Compliance",
-			"controlCompliancePara": "Automated with Kyverno. Retention policy 30 days.",
+			"controlCompliancePara": "Automated with Kyverno. lifecycle policy 30 days.",
 			"pass": "Pass",
 			"fail": "Fail"
 		}
