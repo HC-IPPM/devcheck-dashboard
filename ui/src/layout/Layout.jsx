@@ -25,7 +25,7 @@ export default function Layout() {
 		};
 
 		// Set the title based on the current path
-		const currentTitle = routeTitles[location.pathname] + " - safe-inputs-health-dashboard.ca" || "safe-inputs-health-dashboards.ca"
+		const currentTitle = routeTitles[location.pathname] + " - DevCheck Dashboard.ca" || "DevCheck Dashboard.ca"
 		document.title = currentTitle
 
 		// Delay added to allow i18N to translate first before announcing
