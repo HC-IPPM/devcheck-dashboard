@@ -14,11 +14,12 @@ export default function Vulnerabilities() {
       <GcdsText tag="p" style={{ textAlign: "left" }} characterLimit="false">
         <Trans i18nKey="pages.vulnerabilities.para">
           <a
-            href="https://docs.renovatebot.com/"
+            // href="https://docs.renovatebot.com/"
+            href="https://github.com/dependabot/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Renovate
+            Dependabot
           </a>
         </Trans>
       </GcdsText>

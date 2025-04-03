@@ -8,7 +8,11 @@ export default function ControlSummary() {
   const { data, loading, error } = useFetchData("controls");
 
   if (loading) return <GcdsText>Loading...</GcdsText>;
-  if (error) return <GcdsText>Error: {error}</GcdsText>;
+  if (error) return   <GcdsText characterLimit="false" style={{ textAlign: "left" }}>
+      {error === "Control results file not found."
+        ? "No control compliance results are available yet."
+        : error}
+    </GcdsText>;
 
   // **Transform Data for Summary Table**
   const summaryData = data.flatMap((controlItem) => {

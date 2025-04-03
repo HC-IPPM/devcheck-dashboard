@@ -30,7 +30,11 @@ export default function ControlCompliance() {
       {loading ? (
         <GcdsText>Loading...</GcdsText>
       ) : error ? (
-        <GcdsText>Error: {error}</GcdsText>
+        <GcdsText tag="p" style={{ textAlign: "left" }}>
+        {error === "Control results file not found."
+          ? "No control compliance results are available yet."
+          : error}
+      </GcdsText>
       ) : (
         <DataTable
           headers={[

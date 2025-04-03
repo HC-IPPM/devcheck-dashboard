@@ -7,15 +7,17 @@ Basing this on Pelias [Canada](https://github.com/PHACDataHub/pelias-canada) as 
 This is a standalone project, rather than combining with [Observatory](https://observatory.alpha.phac.gc.ca/safeinputs-alpha-phac-aspc-gc-ca) at the moment as we can more easily lock this down in the MVP with IAP and the data model is different. It may make sense to integrate this into Observatory once flushed out as it contains metrics such as uptime, cloud costs and GitHub configurations which are useful here and will revisit once we have an idea of what is needed out of this and have evaluated the risk of having access to all vunerabilities in one application and have modified the open by default intention of Observatory. 
 
 ## To Run
-1. Populate the service account key file *sa-key.json*.
-2. Populate the .env files 
+1. Populate the service account key file *api/sa-key.json*.
+2. Populate the api/.env and ui/.env files 
 ```
 cd ui
+npm install
 npm run dev
 ```
 Authenticate with google cloud platform. 
 ```
 cd ../api
+npm install
 npm run dev
 ```
 Authenticate with google cloud platform. 

@@ -14,7 +14,8 @@ i18n
   .init({
     fallbackLng: 'en',
     backend: {
-      loadPath: `${basePath}/{{lng}}/translation.json`,
+      // loadPath: `${basePath}/{{lng}}/translation.json`,
+      loadPath: '/locales/{{lng}}/translation.json',
     },
     react: {
       useSuspense: false,
