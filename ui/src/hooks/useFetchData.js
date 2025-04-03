@@ -14,20 +14,30 @@ export default function useFetchData(endpoint) {
     ? "https://3001-my-workstation.cluster-5sn52swtxneecwkdgwfk2ddxuo.cloudworkstations.dev" // workstation
     : "https://api-744920990938.northamerica-northeast1.run.app";
 
-
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       setError(null);
+  
       try {
         const response = await fetch(`${API_URL}/${endpoint}`, { credentials: "include" });
-
+  
         if (!response.ok) {
-          const text = await response.text(); // Read raw response
-          throw new Error(`Error ${response.status}: ${text}`);
+          let errorMsg = `Error ${response.status}`;
+          try {
+            const json = await response.json();
+            if (json?.error) {
+              errorMsg = json.error; // Just the fmessage
+            } else {
+              errorMsg = JSON.stringify(json); // if it's not shaped as expected
+            }
+          } catch {
+            const text = await response.text();
+            errorMsg = text || errorMsg; // fallback to raw text
+          }
+          throw new Error(errorMsg);
         }
-
+  
         const result = await response.json();
         setData(result);
       } catch (err) {
@@ -37,7 +47,7 @@ export default function useFetchData(endpoint) {
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, [API_URL, endpoint]);
 
